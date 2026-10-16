@@ -8,5 +8,5 @@
     android:updatePeriodMillis="1800000"
     android:initialLayout="@layout/widget_tasks"
     android:previewLayout="@layout/widget_tasks"
-    android:previewImage="@drawable/ic_launcher_bg"
+    android:previewImage="@drawable/ic_bg_cobalt"
     android:description="@string/widget_tasks_desc" />

@@ -4,7 +4,7 @@ import os, re, json, shutil
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "..", "ritm.html")
 DIST = os.path.join(ROOT, "dist")
-VERSION = "1.2.0"
+VERSION = "1.3.0"
 
 src = open(SRC, encoding="utf-8").read()
 

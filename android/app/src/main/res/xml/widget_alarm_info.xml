@@ -8,5 +8,5 @@
     android:updatePeriodMillis="1800000"
     android:initialLayout="@layout/widget_alarm"
     android:previewLayout="@layout/widget_alarm"
-    android:previewImage="@drawable/ic_launcher_bg"
+    android:previewImage="@drawable/ic_bg_cobalt"
     android:description="@string/widget_alarm_desc" />

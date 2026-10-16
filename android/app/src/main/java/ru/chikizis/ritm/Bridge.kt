@@ -44,6 +44,8 @@ class Bridge(private val act: MainActivity) {
             .put("next", next?.at ?: 0)
             .put("version", appVersion())
             .put("sdk", Build.VERSION.SDK_INT)
+            .put("icon", IconColors.current(ctx))
+            .put("wstyle", IconColors.style(ctx))
             .toString()
     }
 
@@ -80,6 +82,11 @@ class Bridge(private val act: MainActivity) {
     }
 
     @JavascriptInterface fun testAlarm(label: String, sound: String) = AlarmScheduler.test(ctx, label, sound)
+
+    /** Colour of the launcher icon and widgets (see IconColors.ALL). */
+    @JavascriptInterface fun setIconColor(name: String) = IconColors.set(ctx, name)
+    /** "color" = filled widgets, "plain" = theme background with coloured accents. */
+    @JavascriptInterface fun setWidgetStyle(style: String) = IconColors.setStyle(ctx, style)
 
     /** kind: "ringtone" (phone melodies) or "file" (any audio file). Answers via window.__ritmSoundPicked(id, name). */
     @JavascriptInterface fun pickSound(kind: String) = act.pickSound(kind)

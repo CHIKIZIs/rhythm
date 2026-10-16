@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/t_root" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="14dp" android:background="@drawable/widget_bg">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
-            <TextView android:id="@+id/t_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/r_ink" android:textSize="15sp" android:textStyle="bold" android:maxLines="1" android:text="Задачи на сегодня" />
-            <TextView android:id="@+id/t_sub" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/r_muted" android:textSize="12sp" android:maxLines="1" />
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/t_root" android:layout_width="match_parent" android:layout_height="match_parent">
+    <ImageView android:id="@+id/t_bg" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/wbg" android:scaleType="fitXY" android:contentDescription="@null" />
+    <ImageView android:id="@+id/t_sheen" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/wbg_sheen" android:scaleType="fitXY" android:contentDescription="@null" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="14dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+                <TextView android:id="@+id/t_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="15sp" android:maxLines="1" android:ellipsize="end" android:textStyle="bold" android:text="Задачи на сегодня"/>
+                <TextView android:id="@+id/t_sub" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="12sp" android:maxLines="1" android:ellipsize="end" />
+            </LinearLayout>
+            <ImageView android:id="@+id/t_add" android:layout_width="32dp" android:layout_height="32dp" android:padding="7dp" android:background="@drawable/chip_glass" android:src="@drawable/ic_plus" android:contentDescription="Добавить" />
         </LinearLayout>
-        <ImageView android:id="@+id/t_add" android:layout_width="30dp" android:layout_height="30dp" android:padding="6dp" android:background="@drawable/chip_bg" android:src="@drawable/ic_plus" android:tint="@color/r_accent" android:contentDescription="Добавить" />
-    </LinearLayout>
-    <ProgressBar android:id="@+id/t_progress" style="@android:style/Widget.Material.ProgressBar.Horizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="8dp" android:max="100" android:progress="0" android:progressTint="@color/r_calm" android:progressBackgroundTint="@color/r_line" android:visibility="visible" />
-    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="vertical" android:layout_marginTop="6dp">
-        <LinearLayout android:id="@+id/t_row1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="5dp" android:paddingBottom="5dp" android:visibility="gone">
+        <ProgressBar android:id="@+id/t_progress" style="@android:style/Widget.Material.ProgressBar.Horizontal" android:layout_width="match_parent" android:layout_height="6dp" android:layout_marginTop="8dp" android:max="100" android:progress="0" android:visibility="visible" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="vertical" android:layout_marginTop="6dp">
+        <LinearLayout android:id="@+id/t_row1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="4dp" android:paddingBottom="4dp" android:visibility="gone">
             <ImageView android:id="@+id/t_dot1" android:layout_width="18dp" android:layout_height="18dp" android:padding="4dp" android:src="@drawable/dot" android:contentDescription="@null" />
-            <TextView android:id="@+id/t_txt1" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:textColor="@color/r_ink" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
+            <TextView android:id="@+id/t_txt1" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/t_row2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="5dp" android:paddingBottom="5dp" android:visibility="gone">
+        <LinearLayout android:id="@+id/t_row2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="4dp" android:paddingBottom="4dp" android:visibility="gone">
             <ImageView android:id="@+id/t_dot2" android:layout_width="18dp" android:layout_height="18dp" android:padding="4dp" android:src="@drawable/dot" android:contentDescription="@null" />
-            <TextView android:id="@+id/t_txt2" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:textColor="@color/r_ink" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
+            <TextView android:id="@+id/t_txt2" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/t_row3" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="5dp" android:paddingBottom="5dp" android:visibility="gone">
+        <LinearLayout android:id="@+id/t_row3" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="4dp" android:paddingBottom="4dp" android:visibility="gone">
             <ImageView android:id="@+id/t_dot3" android:layout_width="18dp" android:layout_height="18dp" android:padding="4dp" android:src="@drawable/dot" android:contentDescription="@null" />
-            <TextView android:id="@+id/t_txt3" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:textColor="@color/r_ink" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
+            <TextView android:id="@+id/t_txt3" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/t_row4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="5dp" android:paddingBottom="5dp" android:visibility="gone">
+        <LinearLayout android:id="@+id/t_row4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="4dp" android:paddingBottom="4dp" android:visibility="gone">
             <ImageView android:id="@+id/t_dot4" android:layout_width="18dp" android:layout_height="18dp" android:padding="4dp" android:src="@drawable/dot" android:contentDescription="@null" />
-            <TextView android:id="@+id/t_txt4" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:textColor="@color/r_ink" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
+            <TextView android:id="@+id/t_txt4" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/t_row5" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="5dp" android:paddingBottom="5dp" android:visibility="gone">
+        <LinearLayout android:id="@+id/t_row5" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="4dp" android:paddingBottom="4dp" android:visibility="gone">
             <ImageView android:id="@+id/t_dot5" android:layout_width="18dp" android:layout_height="18dp" android:padding="4dp" android:src="@drawable/dot" android:contentDescription="@null" />
-            <TextView android:id="@+id/t_txt5" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:textColor="@color/r_ink" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
+            <TextView android:id="@+id/t_txt5" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/t_row6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="5dp" android:paddingBottom="5dp" android:visibility="gone">
+        <LinearLayout android:id="@+id/t_row6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="4dp" android:paddingBottom="4dp" android:visibility="gone">
             <ImageView android:id="@+id/t_dot6" android:layout_width="18dp" android:layout_height="18dp" android:padding="4dp" android:src="@drawable/dot" android:contentDescription="@null" />
-            <TextView android:id="@+id/t_txt6" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:textColor="@color/r_ink" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
+            <TextView android:id="@+id/t_txt6" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
         </LinearLayout>
-        <TextView android:id="@+id/t_empty" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:textColor="@color/r_muted" android:textSize="13sp" android:visibility="gone" />
+            <TextView android:id="@+id/t_empty" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:textSize="13sp" android:visibility="gone" />
+        </LinearLayout>
+        <TextView android:id="@+id/t_more" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="12sp" android:maxLines="1" android:ellipsize="end" android:textStyle="bold" android:visibility="gone"/>
     </LinearLayout>
-    <TextView android:id="@+id/t_more" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/r_accent" android:textSize="12sp" android:textStyle="bold" android:visibility="gone" />
-</LinearLayout>
+</FrameLayout>

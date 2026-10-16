@@ -111,3 +111,39 @@ if(N){
     }catch(e){}
   };
 }
+/* icon & widget colour (Android only) */
+if(N&&N.setIconColor){
+  const ICONS=[['cobalt','Кобальт','#3346F0','#8E3FE0'],['ocean','Океан','#0A8DB0','#3346F0'],['mint','Мята','#16A085','#2EE6C8'],['green','Лес','#1E9970','#5E9400'],['sunset','Закат','#FF8A3D','#D93A40'],
+    ['amber','Янтарь','#E0A000','#E06A0A'],['rose','Роза','#E0548A','#B42FB0'],['red','Рубин','#D93A40','#8E1C3A'],['violet','Фиалка','#8E3FE0','#5B3DF5'],['graphite','Графит','#4A5270','#15172C']];
+  const CHECK='<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 1 1-8.5 8.5" opacity="1"/><path d="M8 12.5l2.8 2.8L16.5 9.6"/></svg>';
+  const st=document.createElement('style');st.textContent=`
+.ic-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.ic-grid button{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-weight:600}
+.ic-grid i{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;box-shadow:var(--shadow);transition:transform .2s}
+.ic-grid button[aria-pressed="true"] i{outline:3px solid var(--accent);outline-offset:3px;transform:scale(1.06)}
+.ic-grid button[aria-pressed="true"]{color:var(--ink)}
+.wprev{display:flex;gap:10px;align-items:stretch}
+.wprev div{flex:1;border-radius:16px;padding:10px 12px;font-size:12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.wprev b{font-size:20px;font-weight:800}`;
+  document.head.appendChild(st);
+  const grp=document.createElement('details');grp.className='grp';grp.id='grpIcon';
+  grp.innerHTML='<summary><span><b>Иконка и виджеты</b><small>Цвет иконки Ритма и виджетов на главном экране</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>'+
+    '<div class="grp-body"><div class="set-row set-col"><div><b>Цвет</b><small>Меняет иконку на рабочем столе и все виджеты Ритма</small></div><div class="ic-grid" id="icGrid"></div></div>'+
+    '<div class="set-row set-col"><div><b>Стиль виджетов</b></div><div class="pill-seg"><input class="radio" type="radio" name="wstyle" id="ws-color" value="color"><label for="ws-color">Цветные</label><input class="radio" type="radio" name="wstyle" id="ws-plain" value="plain"><label for="ws-plain">Обычные</label></div>'+
+    '<div class="wprev" id="wPrev"></div></div>'+
+    '<p class="hint" style="padding:4px 2px 10px">Иконка на телефоне обновится через несколько секунд. На некоторых телефонах её нужно заново перетащить на рабочий стол из списка приложений.</p></div>';
+  const data=$('#grpData');data.parentNode.insertBefore(grp,data);
+  let cur='cobalt',wst='color';
+  function renderIcons(){
+    try{const s=JSON.parse(N.getStatus());cur=s.icon||cur;wst=s.wstyle||wst}catch(e){}
+    $('#icGrid').innerHTML=ICONS.map(c=>'<button type="button" data-icon="'+c[0]+'" aria-pressed="'+(c[0]===cur)+'"><i style="background:linear-gradient(160deg,'+c[2]+','+c[3]+')">'+CHECK+'</i>'+c[1]+'</button>').join('');
+    $('#ws-'+wst).checked=true;
+    const c=ICONS.find(x=>x[0]===cur)||ICONS[0];
+    const colored=wst==='color';
+    const box=(t,s)=>'<div style="background:'+(colored?c[2]:'var(--surface)')+';color:'+(colored?'#fff':'var(--ink)')+';border:1px solid '+(colored?'transparent':'var(--line)')+'"><span style="opacity:.8">'+t+'</span><b style="color:'+(colored?'#fff':c[2])+'">'+s+'</b></div>';
+    $('#wPrev').innerHTML=box('Будильник','07:00')+box('Задачи','2 из 5');
+  }
+  grp.addEventListener('toggle',()=>{if(grp.open)renderIcons()});
+  $('#icGrid').addEventListener('click',e=>{const b=e.target.closest('[data-icon]');if(!b)return;cur=b.dataset.icon;N.setIconColor(cur);sfx('done');renderIcons();toast('Цвет «'+b.textContent+'» выбран. Иконка обновится через пару секунд')});
+  grp.addEventListener('change',e=>{if(e.target.name==='wstyle'){wst=e.target.value;N.setWidgetStyle(wst);renderIcons();toast(wst==='color'?'Виджеты стали цветными':'Виджеты в обычном стиле')}});
+}

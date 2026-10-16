@@ -4,6 +4,8 @@
     <string name="widget_alarm">Ритм · Будильник</string>
     <string name="widget_tasks">Ритм · Задачи на сегодня</string>
     <string name="widget_plan">Ритм · План дня</string>
+    <string name="widget_today">Ритм · Сегодня</string>
+    <string name="widget_today_desc">4×2: дата, будильник, план и задачи дня</string>
     <string name="widget_alarm_desc">Ближайший будильник</string>
     <string name="widget_tasks_desc">Задачи на сегодня с прогрессом</string>
     <string name="widget_plan_desc">Расписание на сегодня</string>
