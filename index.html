@@ -8,8 +8,8 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#F1F2F7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0D0F1E" media="(prefers-color-scheme: dark)">
-<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Ритм">
@@ -872,7 +872,7 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
   <div class="sub-head">Приложение</div>
   <div class="set-row" id="installRow"><div><b>Установить на устройство</b><small id="installText">Иконка на рабочем столе и работа без интернета</small></div><button class="link-btn" id="installBtn">Установить</button></div>
   <div class="set-row"><div><b>Системные уведомления</b><small id="notifText">Напоминания и будильник, даже когда окно свёрнуто</small></div><button class="switch" id="notifSw" role="switch" aria-checked="false" aria-label="Системные уведомления"></button></div>
-  <div class="set-row"><div><b>Версия</b><small>Ритм 1.0.0</small></div><button class="link-btn" id="updBtn">Проверить обновление</button></div>
+  <div class="set-row"><div><b>Версия</b><small>Ритм 1.0.1</small></div><button class="link-btn" id="updBtn">Проверить обновление</button></div>
   <div class="sub-head">Данные</div>
   <div class="set-row" id="exportRow"><div><b>Резервная копия</b><small>Сохрани файл со всеми записями</small></div><button class="link-btn" id="exportBtn">Сохранить файл</button></div>
   <div class="set-row"><div><b>Восстановить из копии</b><small>Загрузи файл, сохранённый раньше</small></div><span class="link-btn file-btn">Выбрать файл<input type="file" id="importFile" accept=".json,application/json"></span></div>
@@ -929,7 +929,7 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
 </div>
 
 <div class="install-bar" id="installBar" hidden>
-  <img src="icons/icon-192.png" alt="" width="40" height="40">
+  <img src="icon-192.png" alt="" width="40" height="40">
   <div><b>Установи Ритм</b><small id="installBarText">Будет открываться как обычное приложение</small></div>
   <button id="installBarGo">Установить</button><button id="installBarX" aria-label="Скрыть">✕</button>
 </div>
@@ -2199,7 +2199,7 @@ function showIosHelp(){
   const steps=isIOS?['Открой эту страницу в Safari','Нажми кнопку «Поделиться» (квадрат со стрелкой вверх)','Выбери «На экран Домой» и нажми «Добавить»']
     :['Открой меню браузера (три точки ⋮ вверху справа)','Выбери «Установить приложение» или «Добавить на главный экран»','Подтверди установку'];
   showAlert({key:'install',title:'Как установить Ритм',sub:'',noSnooze:true});
-  const el=$('#alerts').lastElementChild;if(el){el.querySelector('small').innerHTML='<ol class="ios-steps">'+steps.map(s=>'<li>'+s+'</li>').join('')+'</ol>';el.querySelector('.bell').innerHTML='<img src="icons/icon-192.png" width="40" height="40" style="border-radius:10px" alt="">'}
+  const el=$('#alerts').lastElementChild;if(el){el.querySelector('small').innerHTML='<ol class="ios-steps">'+steps.map(s=>'<li>'+s+'</li>').join('')+'</ol>';el.querySelector('.bell').innerHTML='<img src="icon-192.png" width="40" height="40" style="border-radius:10px" alt="">'}
 }
 $('#installBtn').onclick=doInstall;$('#installBarGo').onclick=doInstall;
 $('#installBar').hidden=true;
@@ -2229,7 +2229,7 @@ function notifyOS(title,body,tag,urgent,force){
   try{
     if(notifState()!=='granted'||settings.osNotif===false)return;
     if(!force&&!document.hidden)return;
-    const opt={body:body||'',tag:String(tag||'ritm'),icon:'icons/icon-192.png',badge:'icons/icon-192.png',renotify:true,requireInteraction:!!urgent,vibrate:urgent?[400,200,400,200,400]:[200,100,200]};
+    const opt={body:body||'',tag:String(tag||'ritm'),icon:'icon-192.png',badge:'icon-192.png',renotify:true,requireInteraction:!!urgent,vibrate:urgent?[400,200,400,200,400]:[200,100,200]};
     if(swReg&&swReg.showNotification)swReg.showNotification(title,opt);else new Notification(title,opt);
   }catch(e){}
 }
