@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="r_bg">#0D0F1E</color>
+    <color name="r_surface">#161931</color>
+    <color name="r_ink">#ECEEFB</color>
+    <color name="r_muted">#9A9EC2</color>
+    <color name="r_line">#2A2F50</color>
+    <color name="r_accent">#8592FF</color>
+    <color name="r_accent_soft">#252B5C</color>
+    <color name="r_hot">#FF6D72</color>
+    <color name="r_warm">#F2B640</color>
+    <color name="r_calm">#45D19F</color>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ритм</string>
+    <string name="widget_alarm">Ритм · Будильник</string>
+    <string name="widget_tasks">Ритм · Задачи на сегодня</string>
+    <string name="widget_plan">Ритм · План дня</string>
+    <string name="widget_alarm_desc">Ближайший будильник</string>
+    <string name="widget_tasks_desc">Задачи на сегодня с прогрессом</string>
+    <string name="widget_plan_desc">Расписание на сегодня</string>
+    <string name="alarm_snooze">Отложить</string>
+    <string name="alarm_stop">Выключить</string>
+</resources>
