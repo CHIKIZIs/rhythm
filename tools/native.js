@@ -28,6 +28,18 @@ function nativePayload(){
       days[d]={events:ev,tasks:tk};
     }
   }
+  // birthdays and other yearly items: the next occurrence may be months away, schedule it now
+  const far=iso(addDays(new Date(),14));
+  state.events.forEach(e=>{
+    if(e.repeat.type!=='yearly'||e.remind<0)return;const d=nextYearly(e.repeat.md,far>e.date?far:e.date);if(e.skip.includes(d))return;
+    const t=at(d,e.start)-e.remind*60000;if(t<=now)return;
+    const dd=parse(d);rem.push({id:'e|'+e.id+'|'+d,at:t,title:e.title,body:(e.remind===1440?'Завтра':'Сегодня')+', '+dd.getDate()+' '+MONTHS[dd.getMonth()]+', в '+e.start,tab:'plan'});
+  });
+  state.tasks.forEach(x=>{
+    if(x.repeat.type!=='yearly'||!x.remindTime)return;const d=nextYearly(x.repeat.md,far>x.from?far:x.from);if(x.skip.includes(d)||tDone(x,d))return;
+    const t=at(d,x.remindTime);if(t<=now)return;
+    rem.push({id:'t|'+x.id+'|'+d,at:t,title:x.title,body:'Каждый год в этот день',tab:'tasks',taskId:x.id,date:d});
+  });
   rem.sort((a,b)=>a.at-b.at);
   const alarms=state.alarms.map(a=>({id:a.id,time:a.time,days:a.days,label:a.label,sound:a.sound,snooze:a.snooze,grad:a.grad,on:a.on}));
   return{accent:hexOf(cssVar('--accent')),alarms,reminders:rem.slice(0,80),widget:{days,updated:now}};

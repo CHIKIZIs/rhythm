@@ -19,8 +19,8 @@ android {
         applicationId = "ru.chikizis.ritm"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.3.0"
+        versionCode = 4
+        versionName = "1.4.0"
     }
 
     signingConfigs {
@@ -47,6 +47,8 @@ android {
 
     androidResources { noCompress += listOf("wav", "woff2") }
 
+    testOptions { unitTests.isIncludeAndroidResources = true }
+
     lint {
         abortOnError = false
         checkReleaseBuilds = false
@@ -59,4 +61,6 @@ dependencies {
     implementation("androidx.webkit:webkit:1.12.1")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")
+    testImplementation("org.robolectric:robolectric:4.14.1")
+    testImplementation("androidx.test:core:1.6.1")
 }

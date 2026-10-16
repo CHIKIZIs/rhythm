@@ -7,9 +7,9 @@
             <ImageView android:id="@+id/w_icon" android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_alarm" android:contentDescription="@null" />
             <TextView android:id="@+id/w_head" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="13sp" android:maxLines="1" android:ellipsize="end" android:textStyle="bold" android:layout_marginStart="6dp" android:text="Будильник"/>
         </LinearLayout>
-        <Space android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
+        <FrameLayout android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
         <TextView android:id="@+id/w_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="40sp" android:textStyle="bold" android:includeFontPadding="false" android:fontFeatureSettings="tnum" android:maxLines="1" android:autoSizeTextType="uniform" android:autoSizeMinTextSize="24sp" android:autoSizeMaxTextSize="44sp" />
         <TextView android:id="@+id/w_sub" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="13sp" android:maxLines="2" android:ellipsize="end" android:layout_marginTop="2dp" />
-        <Space android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
+        <FrameLayout android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
     </LinearLayout>
 </FrameLayout>

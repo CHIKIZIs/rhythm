@@ -25,12 +25,12 @@
                 </LinearLayout>
                 <TextView android:id="@+id/d_plan_empty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="12sp" android:maxLines="1" android:ellipsize="end" android:visibility="gone" android:layout_marginTop="4dp" android:text="Свободный день"/>
             </LinearLayout>
-            <Space android:layout_width="12dp" android:layout_height="1dp" />
+            <FrameLayout android:layout_width="12dp" android:layout_height="1dp" />
             <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent" android:orientation="vertical">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
                     <TextView android:id="@+id/d_task_h" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="11sp" android:maxLines="1" android:ellipsize="end" android:textStyle="bold" android:text="ЗАДАЧИ" android:letterSpacing="0.08"/>
                     <TextView android:id="@+id/d_task_n" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="11sp" android:maxLines="1" android:ellipsize="end" android:textStyle="bold" android:layout_marginStart="6dp"/>
-                    <Space android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+                    <FrameLayout android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
                     <ImageView android:id="@+id/d_add" android:layout_width="22dp" android:layout_height="22dp" android:padding="5dp" android:background="@drawable/chip_glass" android:src="@drawable/ic_plus" android:contentDescription="Добавить задачу" />
                 </LinearLayout>
                 <LinearLayout android:id="@+id/dt_row1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingTop="3dp" android:paddingBottom="3dp" android:visibility="gone">

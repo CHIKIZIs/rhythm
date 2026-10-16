@@ -745,6 +745,7 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
         <input class="radio" type="radio" name="rep" id="r-none" value="none"><label for="r-none">Один раз</label>
         <input class="radio" type="radio" name="rep" id="r-daily" value="daily"><label for="r-daily">Каждый день</label>
         <input class="radio" type="radio" name="rep" id="r-weekly" value="weekly"><label for="r-weekly">По дням</label>
+        <input class="radio" type="radio" name="rep" id="r-yearly" value="yearly"><label for="r-yearly">Каждый год</label>
       </div>
       <div class="wdays" id="wdays" hidden>
         <input class="radio" type="checkbox" id="wd-1" value="1"><label for="wd-1">пн</label>
@@ -795,7 +796,7 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
           <input class="radio" type="radio" name="prio" id="f-p3" value="3"><label for="f-p3">Можно позже</label>
         </div>
       </div>
-      <div class="field" id="dueField"><label for="f-due">Срок</label>
+      <div class="field" id="dueField"><label for="f-due" id="dueLbl">Срок</label>
         <input class="inp" type="date" id="f-due">
         <div class="quick">
           <button type="button" class="chip-btn" data-due="0">Сегодня</button>
@@ -1011,7 +1012,7 @@ const normFiles=a=>Array.isArray(a)?a.filter(f=>f&&typeof f.id==='string'&&/^[A-
 const seen=new Set();let firstPaint=true;
 
 /* ---------- data normalize ---------- */
-function normRep(r){if(!r||(r.type!=='daily'&&r.type!=='weekly'))return{type:'none',days:[]};const days=r.type==='weekly'&&Array.isArray(r.days)?r.days.map(Number).filter(n=>n>=0&&n<=6):[];if(r.type==='weekly'&&!days.length)return{type:'none',days:[]};return{type:r.type,days}}
+function normRep(r){if(r&&r.type==='yearly')return /^\d\d-\d\d$/.test(r.md||'')?{type:'yearly',days:[],md:r.md}:{type:'none',days:[]};if(!r||(r.type!=='daily'&&r.type!=='weekly'))return{type:'none',days:[]};const days=r.type==='weekly'&&Array.isArray(r.days)?r.days.map(Number).filter(n=>n>=0&&n<=6):[];if(r.type==='weekly'&&!days.length)return{type:'none',days:[]};return{type:r.type,days}}
 function norm(o){
   const s={events:[],tasks:[],notes:[],alarms:[],focus:{},meta:{}};
   if(!o||typeof o!=='object')return s;
@@ -1036,12 +1037,16 @@ function cleanSamples(s){
 /* ---------- occurrence helpers ---------- */
 const wdOf=d=>parse(d).getDay();
 const isRec=x=>x.repeat.type!=='none';
-function onDay(x,base,d){if(d<base||x.skip.includes(d))return false;if(x.repeat.type==='daily')return true;if(x.repeat.type==='weekly')return x.repeat.days.includes(wdOf(d));return false}
+function onDay(x,base,d){if(d<base||x.skip.includes(d))return false;if(x.repeat.type==='daily')return true;if(x.repeat.type==='weekly')return x.repeat.days.includes(wdOf(d));if(x.repeat.type==='yearly')return yearlyOn(x.repeat.md,d);return false}
+/* yearly: same day and month; 29 February falls on the 28th in ordinary years */
+function yearlyOn(md,d){const m=d.slice(5);if(m===md)return true;if(md==='02-29'&&m==='02-28'){const y=+d.slice(0,4);return !(y%4===0&&(y%100!==0||y%400===0))}return false}
+function nextYearly(md,from){const y=+from.slice(0,4);for(let k=0;k<2;k++){const yy=y+k;let d=yy+'-'+md;if(md==='02-29'&&!(yy%4===0&&(yy%100!==0||yy%400===0)))d=yy+'-02-28';if(d>=from)return d}return(y+1)+'-'+md}
 const evOn=(e,d)=>isRec(e)?onDay(e,e.date,d):e.date===d;
 const rtOn=(t,d)=>isRec(t)&&onDay(t,t.from,d);
 const tDone=(t,d)=>isRec(t)?t.doneDates.includes(d):t.done;
 function repLabel(r){
   if(r.type==='daily')return'каждый день';
+  if(r.type==='yearly'){const m=+r.md.slice(0,2),d=+r.md.slice(3);return'каждый год, '+d+' '+MONTHS[m-1]}
   if(r.type!=='weekly')return'';
   const ds=r.days.slice().sort((a,b)=>((a+6)%7)-((b+6)%7));
   if(ds.length===7)return'каждый день';
@@ -1503,13 +1508,15 @@ function syncForm(){
   const type=curType(),rep=curRep();
   $('#eventFields').hidden=type!=='event';$('#taskFields').hidden=type!=='task';
   $('#wdays').hidden=rep!=='weekly';
-  $('#dueField').hidden=type!=='task'||rep!=='none';
-  $('#dateLbl').textContent=rep==='none'?'Дата':'Начиная с';
+  $('#dueField').hidden=type!=='task'||(rep!=='none'&&rep!=='yearly');
+  $('#dueLbl').textContent=rep==='yearly'?'Дата (повтор каждый год)':'Срок';
+  $('#dateLbl').textContent=rep==='none'||rep==='yearly'?'Дата':'Начиная с';
   const h=$('#repHint');
   if(rep==='weekly'){const days=$$('#wdays input:checked').map(i=>Number(i.value));h.hidden=false;h.textContent=days.length?'Будет повторяться '+repLabel({type:'weekly',days})+'.':'Выбери дни недели.'}
   else if(rep==='daily'){h.hidden=false;h.textContent='Будет повторяться каждый день.'}
+  else if(rep==='yearly'){const d=type==='task'?$('#f-due').value:$('#f-date').value;h.hidden=false;h.textContent=d?'Будет повторяться '+repLabel({type:'yearly',md:d.slice(5)})+'. Подходит для дней рождения и годовщин.':'Выбери дату.'}
   else h.hidden=true;
-  $('#rtHint').textContent=type==='task'&&rep!=='none'?'Напомню в этот час в каждый день повтора.':'Оставь пустым, если напоминание не нужно. Без срока напомню сегодня.';
+  $('#rtHint').textContent=type==='task'&&rep==='yearly'?'Напомню в этот час в этот день каждый год.':type==='task'&&rep!=='none'?'Напомню в этот час в каждый день повтора.':'Оставь пустым, если напоминание не нужно. Без срока напомню сегодня.';
 }
 function setRep(r,baseDay){
   $('#r-'+r.type).checked=true;
@@ -1524,7 +1531,8 @@ $('#subEdit').addEventListener('click',e=>{const b=e.target.closest('[data-rmsub
 $('#typeSeg').addEventListener('change',()=>{syncForm();$('#err').textContent=''});
 $$('input[name=rep]').forEach(i=>i.addEventListener('change',syncForm));
 $$('#wdays input').forEach(i=>i.addEventListener('change',syncForm));
-$$('[data-due]').forEach(b=>b.onclick=()=>{$('#f-due').value=b.dataset.due===''?'':iso(addDays(new Date(),Number(b.dataset.due)))});
+$('#f-due').addEventListener('change',syncForm);$('#f-date').addEventListener('change',syncForm);
+$$('[data-due]').forEach(b=>b.onclick=()=>{$('#f-due').value=b.dataset.due===''?'':iso(addDays(new Date(),Number(b.dataset.due)));syncForm()});
 function nextHour(){const d=new Date();return pad(Math.min(d.getHours()+1,23))+':00'}
 function plusHour(t){const m=Math.min(toM(t)+60,23*60+59);return pad(Math.floor(m/60))+':'+pad(m%60)}
 $('#f-start').addEventListener('change',()=>{const s=$('#f-start').value,e=$('#f-end').value;if(s&&(!e||toM(e)<=toM(s)))$('#f-end').value=plusHour(s)});
@@ -1541,6 +1549,7 @@ function openEditor(kind,id){
     $('#type-task').checked=true;$('#sheetTitle').textContent='Задача';
     $('#f-title').value=t.title;$('#f-p'+t.priority).checked=true;$('#f-due').value=t.due;$('#f-rtime').value=t.remindTime;
     $('#f-cat').value=t.cat;$('#f-note').value=t.note;setRep(t.repeat,ui.day);draftSubs=t.subs.map(s=>Object.assign({},s));
+    if(t.repeat.type==='yearly')$('#f-due').value=t.from;
     $('#f-date').value=ui.day;
   }else{
     $('#type-'+(ui.tab==='tasks'?'task':'event')).checked=true;$('#sheetTitle').textContent='Новая запись';
@@ -1565,6 +1574,7 @@ $('#form').addEventListener('submit',e=>{
   const days=$$('#wdays input:checked').map(i=>Number(i.value));
   if(rt==='weekly'&&!days.length){fail('Выбери хотя бы один день недели.');return}
   const repeat=rt==='none'?{type:'none',days:[]}:{type:rt,days:rt==='weekly'?days:[]};
+  if(rt==='yearly'){const d=type==='task'?$('#f-due').value:$('#f-date').value;if(!d){fail('Выбери дату, которая будет повторяться каждый год.');return}repeat.md=d.slice(5)}
   if(type==='event'){
     const date=$('#f-date').value,start=$('#f-start').value,end=$('#f-end').value,remind=Number($('#f-remind').value);
     if(!date){fail('Выбери дату.');return}if(!start){fail('Укажи время начала.');return}
@@ -1576,11 +1586,11 @@ $('#form').addEventListener('submit',e=>{
     ui.tab='plan';sfx('add');toast(editing?'Событие обновлено':(isRec({repeat})?'Событие добавлено: '+repLabel(repeat):'Событие добавлено в расписание'));
   }else{
     const priority=Number(document.querySelector('input[name=prio]:checked').value);
-    let due=rt==='none'?$('#f-due').value:'';const remindTime=$('#f-rtime').value;
+    let due=rt==='none'?$('#f-due').value:'';const remindTime=$('#f-rtime').value;const yDate=rt==='yearly'?$('#f-due').value:'';
     if(rt==='none'&&remindTime&&!due)due=todayIso();
     const subs=draftSubs.slice();
-    if(editing){const t=state.tasks.find(x=>x.id===editing.id);const wasRec=isRec(t);Object.assign(t,{title,priority,due,note,cat,remindTime,repeat,subs,files:savedFiles()});if(isRec(t)&&!wasRec){t.from=ui.day<todayIso()?ui.day:todayIso();t.done=false}}
-    else state.tasks.push({id:uid(),title,priority,due,note,cat,remindTime,repeat,subs,files:savedFiles(),from:ui.day<todayIso()?ui.day:todayIso(),done:false,doneAt:0,doneDates:[],skip:[],created:Date.now()});
+    if(editing){const t=state.tasks.find(x=>x.id===editing.id);const wasRec=isRec(t);Object.assign(t,{title,priority,due,note,cat,remindTime,repeat,subs,files:savedFiles()});if(isRec(t)&&!wasRec){t.from=ui.day<todayIso()?ui.day:todayIso();t.done=false}if(yDate)t.from=yDate}
+    else state.tasks.push({id:uid(),title,priority,due,note,cat,remindTime,repeat,subs,files:savedFiles(),from:yDate||(ui.day<todayIso()?ui.day:todayIso()),done:false,doneAt:0,doneDates:[],skip:[],created:Date.now()});
     ui.tab='tasks';if(!editing&&ui.filter==='done')ui.filter='active';
     sfx('add');toast(editing?'Задача обновлена':(isRec({repeat})?'Задача будет повторяться '+repLabel(repeat):'Задача добавлена'));
   }
@@ -1757,7 +1767,8 @@ function parseQuick(raw){
   const r={prio:2,repeat:{type:'none',days:[]},date:'',start:'',end:'',remindWord:false};
   if(cut(/\s(?:напомни(?:ть)?|напоминание)(?=\s)/i))r.remindWord=true;
   if(cut(/\s(?:срочно|!{1,3})(?=\s)/i))r.prio=1;
-  if(cut(/\s(?:каждый день|ежедневно)(?=\s)/i))r.repeat={type:'daily',days:[]};
+  if(cut(/\s(?:каждый год|ежегодно|раз в год)(?=\s)/i))r.repeat={type:'yearly',days:[],md:''};
+  else if(cut(/\s(?:каждый день|ежедневно)(?=\s)/i))r.repeat={type:'daily',days:[]};
   else if(cut(/\sпо будням(?=\s)/i))r.repeat={type:'weekly',days:[1,2,3,4,5]};
   else if(cut(/\sпо выходным(?=\s)/i))r.repeat={type:'weekly',days:[6,0]};
   else{
@@ -1803,6 +1814,7 @@ function quickPreview(){
   const r=parseQuick(v);$('#quickGo').disabled=!r.title;
   const tags=['<span class="tag soon">'+(r.kind==='event'?'Событие':'Задача')+'</span>'];
   const rec=r.repeat.type!=='none';
+  if(r.repeat.type==='yearly')r.repeat.md=(r.date||ui.day).slice(5);
   if(rec)tags.push('<span class="tag">'+svg('i-repeat')+repLabel(r.repeat)+'</span>');
   const d=r.date||(r.kind==='event'&&!rec?ui.day:'');
   if(d&&!rec){const dd=parse(d);tags.push('<span class="tag">'+(dayLabel(d)||dd.getDate()+' '+MONTHS[dd.getMonth()])+'</span>')}
@@ -1814,12 +1826,13 @@ function quickCreate(){
   const v=$('#quick').value;if(!v.trim())return;const r=parseQuick(v);if(!r.title){toast('Напиши, что нужно сделать');return}
   const rec=r.repeat.type!=='none',now=Date.now();let kind,id=uid();
   if(r.kind==='event'){
-    kind='event';const date=r.date||(rec?todayIso():ui.day);
+    kind='event';const date=r.date||(rec&&r.repeat.type!=='yearly'?todayIso():ui.day);if(r.repeat.type==='yearly')r.repeat.md=date.slice(5);
     state.events.push({id,title:r.title,date,start:r.start,end:r.end||plusHour(r.start),color:1,note:'',cat:'',remind:15,repeat:r.repeat,skip:[],files:[],created:now});
     if(!rec)ui.day=date;
   }else{
     kind='task';
-    state.tasks.push({id,title:r.title,priority:r.prio,due:rec?'':(r.date||(ui.tab==='plan'?ui.day:'')),note:'',cat:'',remindTime:r.start||'',repeat:r.repeat,subs:[],files:[],from:ui.day<todayIso()?ui.day:todayIso(),done:false,doneAt:0,doneDates:[],skip:[],created:now});
+    let yFrom='';if(r.repeat.type==='yearly'){yFrom=r.date||ui.day;r.repeat.md=yFrom.slice(5)}
+    state.tasks.push({id,title:r.title,priority:r.prio,due:rec?'':(r.date||(ui.tab==='plan'?ui.day:'')),note:'',cat:'',remindTime:r.start||(r.repeat.type==='yearly'?'09:00':''),repeat:r.repeat,subs:[],files:[],from:yFrom||(ui.day<todayIso()?ui.day:todayIso()),done:false,doneAt:0,doneDates:[],skip:[],created:now});
   }
   $('#quick').value='';quickPreview();persist();render();
   sfx('add');toast(kind==='event'?'Событие добавлено':'Задача добавлена','Изменить',()=>openEditor(kind,id));
