@@ -4,7 +4,7 @@ import os, re, json, shutil
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, "..", "ritm.html")
 DIST = os.path.join(ROOT, "dist")
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 
 src = open(SRC, encoding="utf-8").read()
 
@@ -32,13 +32,15 @@ body = rep(body, "function showAlert(r){\n", "function showAlert(r){\n  notifyOS
 body = rep(body, "function ring(a){\n", "function ring(a){\n  notifyOS('Будильник '+a.time,a.label||'Пора вставать','alarm-'+a.id,true);\n")
 
 # ---- settings: an "Приложение" section
-APP_SETTINGS = '''  <div class="sub-head">Приложение</div>
-  <div class="set-row" id="installRow"><div><b>Установить на устройство</b><small id="installText">Иконка на рабочем столе и работа без интернета</small></div><button class="link-btn" id="installBtn">Установить</button></div>
+CHEV = '<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
+DATA_ANCHOR = '  <details class="grp" id="grpData">'
+PWA_ROWS = '''  <div class="set-row" id="installRow"><div><b>Установить на устройство</b><small id="installText">Иконка на рабочем столе и работа без интернета</small></div><button class="link-btn" id="installBtn">Установить</button></div>
   <div class="set-row"><div><b>Системные уведомления</b><small id="notifText">Напоминания и будильник, даже когда окно свёрнуто</small></div><button class="switch" id="notifSw" role="switch" aria-checked="false" aria-label="Системные уведомления"></button></div>
   <div class="set-row"><div><b>Версия</b><small>Ритм ''' + VERSION + '''</small></div><button class="link-btn" id="updBtn">Проверить обновление</button></div>
   <div class="set-row" id="apkRow" hidden><div><b>Приложение для Android</b><small>С виджетами и будильником, который звонит, даже когда Ритм закрыт</small></div><a class="link-btn" href="ritm.apk" download>Скачать</a></div>
-  <div class="sub-head">Данные</div>'''
-body = rep(body, '  <div class="sub-head">Данные</div>', APP_SETTINGS)
+'''
+APP_SETTINGS = '  <details class="grp" id="grpApp"><summary><span><b>Приложение</b><small>Установка, уведомления, версия</small></span>' + CHEV + '</summary><div class="grp-body">\n' + PWA_ROWS + '  </div></details>\n'
+body = rep(body, DATA_ANCHOR, APP_SETTINGS + DATA_ANCHOR)
 
 # ---- install banner shown once on first visits
 BANNER = '''<div class="install-bar" id="installBar" hidden>

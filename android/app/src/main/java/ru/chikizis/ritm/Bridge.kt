@@ -81,6 +81,11 @@ class Bridge(private val act: MainActivity) {
 
     @JavascriptInterface fun testAlarm(label: String, sound: String) = AlarmScheduler.test(ctx, label, sound)
 
+    /** kind: "ringtone" (phone melodies) or "file" (any audio file). Answers via window.__ritmSoundPicked(id, name). */
+    @JavascriptInterface fun pickSound(kind: String) = act.pickSound(kind)
+    @JavascriptInterface fun previewSound(sound: String) = Sounds.preview(ctx, sound)
+    @JavascriptInterface fun stopPreview() = Sounds.stopPreview()
+
     @JavascriptInterface fun saveFile(name: String, data: String) = act.saveFile(name, data)
 
     @JavascriptInterface fun keepScreenOn(on: Boolean) = act.keepScreenOn(on)

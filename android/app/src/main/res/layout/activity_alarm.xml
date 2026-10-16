@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/alarm_root">
-    <FrameLayout android:id="@+id/waves" android:layout_width="180dp" android:layout_height="180dp" android:layout_gravity="center_horizontal" android:layout_marginTop="170dp">
+<!-- Ringing alarm: stretches to any screen height, buttons always stay at the bottom -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alarm_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="40dp"
+    android:paddingBottom="40dp">
+
+    <Space android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
+
+    <FrameLayout android:id="@+id/waves" android:layout_width="160dp" android:layout_height="160dp">
         <View android:id="@+id/wave1" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/wave" />
         <View android:id="@+id/wave2" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/wave" />
         <View android:id="@+id/wave3" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/wave" />
-        <ImageView android:id="@+id/bell" android:layout_width="64dp" android:layout_height="64dp" android:layout_gravity="center" android:src="@drawable/ic_bell" android:contentDescription="@null" />
+        <ImageView android:id="@+id/bell" android:layout_width="60dp" android:layout_height="60dp" android:layout_gravity="center" android:src="@drawable/ic_bell" android:contentDescription="@null" />
     </FrameLayout>
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_horizontal" android:layout_marginTop="370dp" android:paddingStart="24dp" android:paddingEnd="24dp">
-        <TextView android:id="@+id/time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#FFFFFF" android:textSize="96sp" android:textStyle="bold" android:fontFeatureSettings="tnum" android:includeFontPadding="false" android:text="07:00" />
-        <TextView android:id="@+id/label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="#E6FFFFFF" android:textSize="20sp" android:gravity="center" android:maxLines="3" android:text="Будильник" />
-        <TextView android:id="@+id/date" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:textColor="#99FFFFFF" android:textSize="15sp" />
+
+    <TextView android:id="@+id/time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="28dp"
+        android:textColor="#FFFFFF" android:textSize="88sp" android:textStyle="bold" android:fontFeatureSettings="tnum" android:includeFontPadding="false"
+        android:autoSizeTextType="uniform" android:autoSizeMinTextSize="48sp" android:autoSizeMaxTextSize="96sp" android:maxLines="1" />
+    <TextView android:id="@+id/label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp"
+        android:textColor="#E6FFFFFF" android:textSize="22sp" android:textStyle="bold" android:gravity="center" android:maxLines="3" android:ellipsize="end" />
+    <TextView android:id="@+id/date" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp"
+        android:textColor="#99FFFFFF" android:textSize="15sp" />
+
+    <Space android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1.3" />
+
+    <LinearLayout android:id="@+id/buttons" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+        <Button android:id="@+id/stop" android:layout_width="match_parent" android:layout_height="68dp"
+            android:background="@drawable/btn_white" android:textColor="#111111" android:textSize="18sp" android:textStyle="bold"
+            android:textAllCaps="false" android:stateListAnimator="@null" android:text="@string/alarm_stop" />
+        <Button android:id="@+id/snooze" android:layout_width="match_parent" android:layout_height="60dp" android:layout_marginTop="12dp"
+            android:background="@drawable/btn_soft" android:textColor="#FFFFFF" android:textSize="17sp"
+            android:textAllCaps="false" android:stateListAnimator="@null" android:text="@string/alarm_snooze" />
     </LinearLayout>
-    <LinearLayout android:id="@+id/buttons" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" android:orientation="horizontal" android:paddingStart="24dp" android:paddingEnd="24dp" android:paddingBottom="48dp">
-        <Button android:id="@+id/snooze" android:layout_width="0dp" android:layout_weight="1" android:layout_height="64dp" android:layout_marginEnd="8dp" android:background="@drawable/btn_soft" android:textColor="#FFFFFF" android:textSize="17sp" android:textAllCaps="false" android:stateListAnimator="@null" android:text="@string/alarm_snooze" />
-        <Button android:id="@+id/stop" android:layout_width="0dp" android:layout_weight="1" android:layout_height="64dp" android:layout_marginStart="8dp" android:background="@drawable/btn_white" android:textColor="#111111" android:textSize="17sp" android:textStyle="bold" android:textAllCaps="false" android:stateListAnimator="@null" android:text="@string/alarm_stop" />
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>

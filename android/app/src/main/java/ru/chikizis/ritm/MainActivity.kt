@@ -60,6 +60,50 @@ class MainActivity : ComponentActivity() {
         js("window.__ritmSaved&&__ritmSaved(${if (ok) "true" else "false"})")
     }
 
+    private fun soundPicked(r: Pair<String, String>?) {
+        if (r == null) { js("window.__ritmSoundPicked&&__ritmSoundPicked(null,'file')"); return }
+        js("window.__ritmSoundPicked&&__ritmSoundPicked(${JSONObject.quote(r.first)},${JSONObject.quote(r.second)})")
+    }
+
+    private val pickRingtone = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
+        @Suppress("DEPRECATION")
+        val uri: Uri? = res.data?.getParcelableExtra(android.media.RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+        if (res.resultCode != Activity.RESULT_OK || uri == null) return@registerForActivityResult
+        Thread {
+            val ok = Sounds.playable(this, uri)
+            runOnUiThread {
+                if (ok) soundPicked(Sounds.ringtone(this, uri))
+                else js("window.__ritmSoundPicked&&__ritmSoundPicked(null,'ringtone')")
+            }
+        }.start()
+    }
+
+    private val pickAudio = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri == null) return@registerForActivityResult
+        Thread {
+            val r = Sounds.importFile(this, uri)
+            runOnUiThread { soundPicked(r) }
+        }.start()
+    }
+
+    fun pickSound(kind: String) = runOnUiThread {
+        try {
+            if (kind == "file") pickAudio.launch(arrayOf("audio/*"))
+            else pickRingtone.launch(Intent(android.media.RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+                putExtra(android.media.RingtoneManager.EXTRA_RINGTONE_TYPE,
+                    android.media.RingtoneManager.TYPE_ALARM or android.media.RingtoneManager.TYPE_RINGTONE)
+                putExtra(android.media.RingtoneManager.EXTRA_RINGTONE_TITLE, "Мелодия будильника")
+                putExtra(android.media.RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
+                putExtra(android.media.RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+            })
+        } catch (e: Exception) { soundPicked(null) }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Sounds.stopPreview()
+    }
+
     val notifPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
         js("window.__ritmResume&&__ritmResume()")
     }

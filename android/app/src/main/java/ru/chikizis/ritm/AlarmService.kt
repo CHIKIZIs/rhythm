@@ -43,6 +43,11 @@ class AlarmService : Service() {
         }
 
         fun soundRes(ctx: Context, name: String): Uri? {
+            if (name.startsWith("uri:")) return Uri.parse(name.removePrefix("uri:"))
+            if (name.startsWith("file:")) {
+                val f = java.io.File(Sounds.dir(ctx), name.removePrefix("file:"))
+                return if (f.exists()) Uri.fromFile(f) else null
+            }
             val id = ctx.resources.getIdentifier("alarm_$name", "raw", ctx.packageName)
             return if (id != 0) Uri.parse("android.resource://${ctx.packageName}/$id") else null
         }
@@ -122,24 +127,32 @@ class AlarmService : Service() {
     }
 
     private fun startSound(a: Alarm) {
-        val uri = soundRes(this, a.sound)
-            ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-            ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
-        try {
-            player = MediaPlayer().apply {
-                setAudioAttributes(AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
-                setDataSource(this@AlarmService, uri)
-                isLooping = true
-                prepare()
-                volume = if (a.grad) 0.12f else 1f
-                setVolume(volume, volume)
-                start()
+        // the chosen melody first; if it is gone or broken, Ритм's bells, then the phone's alarm sound
+        val candidates = listOfNotNull(
+            soundRes(this, a.sound),
+            soundRes(this, "bells"),
+            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM),
+            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE),
+        )
+        for (uri in candidates) {
+            try {
+                player = MediaPlayer().apply {
+                    setAudioAttributes(AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
+                    setDataSource(this@AlarmService, uri)
+                    isLooping = true
+                    prepare()
+                    volume = if (a.grad) 0.12f else 1f
+                    setVolume(volume, volume)
+                    start()
+                }
+                if (a.grad) rampVolume()
+                return
+            } catch (e: Exception) {
+                try { player?.release() } catch (_: Exception) {}
+                player = null
             }
-            if (a.grad) rampVolume()
-        } catch (e: Exception) {
-            player = null
         }
     }
 

@@ -102,3 +102,12 @@ if(N){
   try{const qp=new URLSearchParams(location.search);const add=qp.get('add');if(add)setTimeout(()=>__ritmOpen(qp.get('tab')||'plan',add),700)}catch(e){}
   setTimeout(()=>{nativeEvents();nativeSync();nativeBars()},400);
 }
+/* show a snoozed alarm (kept by the phone) as the next one */
+if(N){
+  const _ra=renderAlarms;renderAlarms=function(){
+    _ra();
+    try{readStatus();const nx=nextAlarm();const t=nStatus.next;
+      if(t&&t>Date.now()&&(!nx||t<nx.t-60000)){const d=new Date(t);$('#nextAl').innerHTML='<span>Отложенный будильник</span><b>'+pad(d.getHours())+':'+pad(d.getMinutes())+'</b><span>через '+untilText(t-Date.now())+'</span>'}
+    }catch(e){}
+  };
+}

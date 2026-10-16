@@ -9,13 +9,13 @@ FONTS_SRC = "/tmp/fs"
 
 nb = body
 nb = rep(nb, "if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')", "if(false){navigator.serviceWorker.register('sw.js')")
-nb = rep(nb, '  <div class="sub-head">Приложение</div>', '  <div hidden id="pwaRows">')
-nb = rep(nb, '  <div class="sub-head">Данные</div>', '''  </div>
-  <div class="sub-head">Будильник и напоминания</div>
-  <div id="permList"></div>
+nb = rep(nb, APP_SETTINGS, '  <div hidden id="pwaRows">\n' + PWA_ROWS + '  </div>\n' +
+    '  <details class="grp" id="grpPhone" open><summary><span><b>Будильник и напоминания</b><small>Разрешения телефона, проверка будильника, версия</small></span>' + CHEV + '</summary><div class="grp-body">\n' +
+    '''  <div id="permList"></div>
   <div class="set-row"><div><b>Проверить будильник</b><small>Зазвонит через 10 секунд. Можно сразу заблокировать телефон</small></div><button class="link-btn" id="nTest">Проверить</button></div>
   <div class="set-row"><div><b>Версия</b><small id="nVer">Ритм</small></div><button class="link-btn" id="nUpd">Проверить обновление</button></div>
-  <div class="sub-head">Данные</div>''')
+  </div></details>
+''')
 nb = rep(nb, '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n', '')
 nb = re.sub(r'<link rel="stylesheet" href="https://fonts.googleapis.com[^>]*>', '<link rel="stylesheet" href="fonts/fonts.css">', nb, count=1)
 nb = rep(nb, "l.href='https://fonts.googleapis.com/css2?family='+F[3]+'&display=swap';", "l.href='fonts/fonts.css';")

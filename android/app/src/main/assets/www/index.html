@@ -52,16 +52,21 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .ico{width:16px;height:16px;flex:none;display:inline-block;vertical-align:-3px}
 
 /* ---------- hero ---------- */
-.hero{display:flex;gap:20px;align-items:center;justify-content:space-between;padding-block:24px 8px}
+.hero{display:flex;flex-direction:column;gap:6px;padding-block:14px 4px}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:40px}
+.hero-actions{display:flex;gap:4px;flex:none}
+.hero-actions .icon-btn{width:40px;height:40px}
+.hero-main{display:flex;align-items:center;justify-content:space-between;gap:14px}
 .hero-text{min-width:0}
-.greet{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.greet{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;gap:8px;align-items:center;min-width:0;white-space:nowrap;overflow:hidden}
+.greet #greet{overflow:hidden;text-overflow:ellipsis}
 .rel{background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:999px;letter-spacing:.04em}
 .icon-btn{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--muted);transition:background .2s,color .2s,transform .3s}
 .icon-btn:hover{background:var(--surface-2);color:var(--ink)}
 #settingsBtn:hover{transform:rotate(60deg)}
-.date{font-family:var(--f-display);font-weight:700;font-size:clamp(34px,8vw,60px);line-height:1;letter-spacing:-.02em;margin:10px 0 6px;text-wrap:balance}
-.date .wd{display:block;font-weight:500;font-size:.42em;letter-spacing:0;color:var(--muted);margin-top:8px}
-.summary{color:var(--muted);margin:6px 0 0;font-size:15px}
+.date{font-family:var(--f-display);font-weight:700;font-size:clamp(26px,7.2vw,52px);line-height:1.05;letter-spacing:-.02em;margin:2px 0 4px;white-space:nowrap}
+.date .wd{display:block;font-weight:500;font-size:max(14px,.42em);letter-spacing:0;color:var(--muted);margin-top:6px}
+.summary{color:var(--muted);margin:4px 0 0;font-size:14px}
 .summary b{color:var(--ink)}
 .ring{flex:none;position:relative;width:112px;height:112px}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
@@ -108,8 +113,8 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .seg button svg{width:20px;height:20px;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
 .seg button[aria-selected="true"]{color:var(--accent)}
 .seg button[aria-selected="true"] svg{transform:scale(1.12)}
-.seg .lab{display:flex;align-items:center;gap:3px;max-width:100%;overflow:hidden}
-.seg .n{font-family:var(--f-mono);font-size:10px;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:0 5px;line-height:15px}
+.seg .lab{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.seg .n{position:absolute;top:3px;left:calc(50% + 5px);font-family:var(--f-mono);font-size:10px;font-weight:700;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:0 5px;line-height:16px;min-width:16px;text-align:center;box-shadow:0 0 0 2px var(--surface-2)}
 .seg .n:empty,.seg .n[data-z]{display:none}
 
 /* ---------- quick add ---------- */
@@ -119,7 +124,7 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .qa-row svg{flex:none;color:var(--accent)}
 .qa-row input{flex:1;min-width:0;border:0;background:none;padding:9px 0;font-size:16px;outline:none}
 .qa-row button{flex:none;width:40px;height:40px;border-radius:11px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;transition:transform .15s,opacity .2s}
-.qa-row button:disabled{opacity:.35}
+.qa-row button:disabled{opacity:1;background:var(--surface-2);color:var(--muted)}
 .qa-row button:active{transform:scale(.9)}
 .qa-prev{font-size:13px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:0}
 .qa-prev:empty{display:none}
@@ -280,6 +285,26 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .empty{border:1.5px dashed var(--line);border-radius:var(--r);padding:26px 20px;text-align:center;color:var(--muted);display:flex;flex-direction:column;gap:8px;align-items:center}
 .empty strong{font-family:var(--f-display);font-weight:500;color:var(--ink);font-size:16px}
 .empty p{margin:0;max-width:36ch}
+.act-btn{margin-top:4px;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:11px 18px;border-radius:14px;background:var(--accent);color:var(--accent-ink);transition:transform .15s}
+.act-btn:active{transform:scale(.96)}
+.act-btn.soft{background:var(--accent-soft);color:var(--accent)}
+.qa-ex{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted);animation:fadeIn .25s both}
+.qa-ex button{font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.grp{border-bottom:1px solid var(--line)}
+.grp>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 2px;cursor:pointer}
+.grp>summary::-webkit-details-marker{display:none}
+.grp>summary span{display:flex;flex-direction:column;min-width:0}
+.grp>summary b{font-size:16px}
+.grp>summary small{font-size:13px;color:var(--muted)}
+.grp>summary .chev{flex:none;color:var(--muted);transition:transform .25s}
+.grp[open]>summary .chev{transform:rotate(180deg)}
+.grp-body{padding-bottom:8px}
+.grp-body .set-row:last-child{border-bottom:0}
+.help-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.help-list li{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start}
+.help-list i{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-style:normal;font-weight:800;font-family:var(--f-display)}
+.help-list b{display:block;font-size:15px}
+.help-list span{font-size:14px;color:var(--muted)}
 
 /* ---------- focus ---------- */
 .focus{display:flex;flex-direction:column;align-items:center;gap:18px;padding-block:6px 10px}
@@ -320,6 +345,7 @@ button:disabled{cursor:not-allowed;opacity:.4}
 .bar-col.zero i{background:var(--surface-2)}
 .bar-col.zero em{color:var(--muted)}
 .bars.focus-bars .bar-col i{background:var(--calm)}
+.bars .bar-col.zero i{background:var(--surface-2)}
 .bar-days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:8px;text-align:center;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .bar-days .t{color:var(--accent);font-weight:700}
 .upcoming{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
@@ -518,7 +544,25 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
 .al-main span{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
 .al-tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;margin-top:14px}
 .al-note{margin-top:14px;text-align:center}
-.al-time{font-family:var(--f-display)!important;font-size:44px!important;text-align:center;padding:14px!important;font-weight:700}
+.wheels{position:relative;display:flex;justify-content:center;align-items:center;gap:6px;height:168px;background:var(--surface-2);border-radius:20px;overflow:hidden;user-select:none}
+.wheel{height:168px;width:96px;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;position:relative;z-index:1;outline:none;
+  -webkit-mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+.wheel::-webkit-scrollbar{display:none}
+.wheel div{height:56px;display:grid;place-items:center;scroll-snap-align:center;font-family:var(--f-display);font-weight:700;font-size:40px;color:var(--muted);font-variant-numeric:tabular-nums;transition:color .15s,transform .15s;cursor:pointer}
+.wheel div.sel{color:var(--ink);transform:scale(1.08)}
+.wheel div.pad{pointer-events:none}
+.wheel:focus-visible{box-shadow:inset 0 0 0 2px var(--accent);border-radius:14px}
+.wheel-colon{font-family:var(--f-display);font-size:40px;position:relative;z-index:1;margin-top:-6px}
+.wheel-hl{position:absolute;left:12px;right:12px;top:56px;height:56px;border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+.sound-row{display:flex;gap:8px;align-items:center}
+.sound-row .inp{flex:1}
+.sound-row .round-btn{width:48px;height:48px;flex:none;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.al-until{margin:-4px 0 0;text-align:center;font-weight:600;color:var(--accent);font-size:15px;min-height:22px}
+.nap{display:flex;gap:6px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:14px;font-size:13px;color:var(--muted)}
+.al-empty{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:22px 16px;border:1.5px dashed var(--line);border-radius:var(--r)}
+.al-empty .big-bell{width:64px;height:64px;border-radius:20px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.al-empty strong{font-family:var(--f-display);font-weight:500;font-size:18px}
+.al-empty p{margin:0;color:var(--muted);max-width:32ch}
 
 /* ---------- ringing ---------- */
 .ring-ov{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;text-align:center;
@@ -542,7 +586,7 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
 .night-box span{color:#8a8fa8;font-size:15px}
 .night>button{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));color:#6a6f88;font-size:14px;padding:10px 16px;border-radius:12px;border:1px solid #23263a}
 
-@media (max-width:420px){.ring{width:92px;height:92px}.ring-label b{font-size:18px}.hero{padding-block:18px 4px}.seg button{font-size:13px}}
+@media (max-width:420px){.ring{width:84px;height:84px}.ring-label b{font-size:17px}.ring-label span{font-size:10px}}
 
 /* ---------- installed app ---------- */
 .install-bar{position:fixed;z-index:42;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));width:min(460px,calc(100vw - 24px));
@@ -572,16 +616,19 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
 
 <div class="wrap">
   <header class="hero">
-    <div class="hero-text load-1">
-      <div class="greet"><span class="sky" id="sky" aria-hidden="true"></span><span id="greet">Добрый день</span><span class="rel" id="rel" hidden>сегодня</span>
-        <button class="icon-btn" id="settingsBtn" aria-label="Настройки"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
-      </div>
-      <h1 class="date" id="dateTitle">16 октября<span class="wd">пятница</span></h1>
-      <p class="summary" id="summary"></p>
+    <div class="hero-top load-1">
+      <div class="greet"><span class="sky" id="sky" aria-hidden="true"></span><span id="greet">Добрый день</span><span class="rel" id="rel" hidden>сегодня</span></div>
+      <div class="hero-actions"><button class="icon-btn" id="helpBtn" aria-label="Как пользоваться"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.3 9.2a2.8 2.8 0 0 1 5.4 1c0 1.9-2.7 2.4-2.7 4"/><circle cx="12" cy="17.3" r=".6" fill="currentColor"/></svg></button><button class="icon-btn" id="settingsBtn" aria-label="Настройки"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button></div>
     </div>
+    <div class="hero-main">
+      <div class="hero-text load-1">
+        <h1 class="date" id="dateTitle">16 октября<span class="wd">пятница</span></h1>
+        <p class="summary" id="summary"></p>
+      </div>
     <div class="ring load-2" role="img" id="ringBox" aria-label="Прогресс задач">
       <svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="42" fill="none" stroke-width="9"/><circle class="bar" id="ringBar" cx="50" cy="50" r="42" fill="none" stroke-width="9" stroke-dasharray="263.9" stroke-dashoffset="263.9"/></svg>
       <div class="ring-label"><b id="ringNum">0/0</b><span id="ringCap">за день</span></div>
+    </div>
     </div>
   </header>
 
@@ -613,10 +660,11 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
     <div class="quick-add" id="quickAdd">
       <div class="qa-row">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
-        <input id="quick" type="text" autocomplete="off" enterkeyhint="done" placeholder="Быстро: «тренировка каждую субботу в 10»" aria-label="Быстрое добавление">
+        <input id="quick" type="text" autocomplete="off" enterkeyhint="done" placeholder="Быстро добавить дело…" aria-label="Быстрое добавление">
         <button id="quickGo" aria-label="Добавить" disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
       </div>
       <div class="qa-prev" id="quickPrev"></div>
+      <div class="qa-ex" id="qaEx" hidden><span>Например:</span><button type="button" data-ex="зарядка по будням в 7">зарядка по будням в 7</button><button type="button" data-ex="тренировка каждую субботу в 10">тренировка каждую субботу в 10</button><button type="button" data-ex="купить хлеб завтра">купить хлеб завтра</button><button type="button" data-ex="сдать доклад 25.10 срочно">сдать доклад 25.10 срочно</button></div>
     </div>
 
     <section class="panel" id="p-plan">
@@ -653,7 +701,8 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
       <div id="alarmView"><div id="permWarn"></div>
         <div class="next-al" id="nextAl"></div>
         <div class="al-list" id="alList"></div>
-        <div class="al-tools"><button class="link-btn" id="alNew"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Новый будильник</button><button class="link-btn" id="nightBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Ночные часы</button></div>
+        <div class="nap" id="nap"><span>Быстрый будильник:</span><button class="chip-btn" data-nap="15">через 15 мин</button><button class="chip-btn" data-nap="30">30 мин</button><button class="chip-btn" data-nap="60">1 час</button><button class="chip-btn" data-nap="480">8 часов</button></div>
+        <div class="al-tools"><button class="act-btn" id="alNew"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Новый будильник</button><button class="link-btn" id="nightBtn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Ночные часы</button></div>
         <p class="hint al-note">Будильник зазвонит, даже если Ритм закрыт, а телефон заблокирован.</p>
       </div>
       <div class="focus" id="focus" data-mode="work" hidden>
@@ -694,7 +743,7 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
   </main>
 </div>
 
-<button class="fab" id="fab" aria-label="Добавить"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Добавить</button>
+<button class="fab" id="fab" aria-label="Добавить"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span id="fabLab">Добавить</span></button>
 
 <div class="scrim" id="scrim" hidden></div>
 
@@ -830,52 +879,72 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
   <div class="lb-stage" id="lbStage"></div>
 </div>
 
+<div class="sheet" id="helpSheet" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden>
+  <div class="grab"></div>
+  <h3 id="helpTitle">Как пользоваться Ритмом</h3>
+  <ul class="help-list">
+    <li><i>1</i><div><b>План</b><span>Расписание дня по времени. Красная линия показывает, который сейчас час. Листай дни в полоске недели.</span></div></li>
+    <li><i>2</i><div><b>Задачи</b><span>Дела без точного времени. Нажми на кружок, когда сделаешь. Внутри задачи можно добавить шаги и напоминание.</span></div></li>
+    <li><i>3</i><div><b>Быстрая строка</b><span>Напиши обычной фразой: «тренировка каждую субботу в 10» или «купить хлеб завтра». Время и дни Ритм поймёт сам.</span></div></li>
+    <li><i>4</i><div><b>Часы</b><span>Будильники, быстрый будильник «через 15 минут», фокус-таймер и фоновые звуки.</span></div></li>
+    <li><i>5</i><div><b>Заметки</b><span>Записи с фото, видео и файлами. Важные можно закрепить сверху.</span></div></li>
+    <li><i>6</i><div><b>Изменить или удалить</b><span>Нажми на любое событие, задачу или будильник. Удалённое можно вернуть кнопкой «Вернуть» внизу.</span></div></li>
+  </ul>
+  <div class="actions" style="margin-top:18px"><button type="button" class="btn primary" id="helpClose" style="flex:1">Понятно</button></div>
+</div>
+
 <div class="sheet" id="settings" role="dialog" aria-modal="true" aria-labelledby="setTitle" hidden>
   <div class="grab"></div>
   <h3 id="setTitle">Настройки</h3>
-  <div class="sub-head">Оформление</div>
+  <details class="grp"><summary><span><b>Цвет и тема</b><small>Цвет кнопок, светлая или тёмная тема, имя</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary><div class="grp-body">
   <div class="set-row set-col"><div><b>Цвет кнопок</b><small>Выбери из палитры или задай свой</small></div>
     <div class="accents" id="accents"></div>
     <label class="custom-col"><input type="color" id="customCol" value="#3346f0">Свой цвет</label>
   </div>
-  <div class="set-row"><div><b>Тема</b><small>Как в системе или своя</small></div>
-    <div class="pill-seg" style="min-width:240px">
+  <div class="set-row set-col"><div><b>Тема</b><small>«Авто» — как в настройках телефона</small></div>
+    <div class="pill-seg">
       <input class="radio" type="radio" name="theme" id="th-auto" value="auto"><label for="th-auto">Авто</label>
       <input class="radio" type="radio" name="theme" id="th-light" value="light"><label for="th-light">Светлая</label>
       <input class="radio" type="radio" name="theme" id="th-dark" value="dark"><label for="th-dark">Тёмная</label>
     </div></div>
+  <div class="set-row set-col"><div><b>Как тебя зовут</b><small>Для приветствия наверху</small></div><input class="inp" id="userName" maxlength="30" autocomplete="off" placeholder="Имя или ник"></div>
+  </div></details>
+  <details class="grp"><summary><span><b>Фон, шрифт и эффекты</b><small>Живой фон, шрифт, карточки, размер текста</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary><div class="grp-body">
   <div class="set-row set-col"><div><b>Фон и декорации</b><small>Узор или живая анимация за карточками</small></div><div class="opt-grid" id="opt-decor"></div></div>
   <div class="set-row set-col"><div><b>Шрифт заголовков</b></div><div class="opt-grid" id="opt-font"></div></div>
   <div class="set-row set-col"><div><b>Стиль карточек</b></div><div class="opt-grid" id="opt-cards"></div></div>
   <div class="set-row set-col"><div><b>Скругление углов</b></div><div class="opt-grid" id="opt-round"></div></div>
   <div class="set-row set-col"><div><b>Размер текста</b></div><div class="opt-grid" id="opt-size"></div></div>
-  <div class="set-row set-col"><div><b>Как тебя зовут</b><small>Для приветствия наверху</small></div><input class="inp" id="userName" maxlength="30" autocomplete="off" placeholder="Имя или ник"></div>
   <div class="set-row"><div><b>Небо у даты</b><small>Солнце днём, луна и звёзды ночью</small></div><button class="switch" id="skySw" role="switch" aria-checked="true" aria-label="Небо у даты"></button></div>
   <div class="set-row"><div><b>Салют за выполненный день</b><small>Когда закрыты все задачи дня</small></div><button class="switch" id="celebSw" role="switch" aria-checked="true" aria-label="Салют за выполненный день"></button></div>
   <div class="set-row"><div><b>Круги от касаний</b><small>Волна в месте нажатия</small></div><button class="switch" id="rippleSw" role="switch" aria-checked="true" aria-label="Круги от касаний"></button></div>
   <div class="set-row"><div><b>Переливы даты</b><small>Дата наверху переливается цветами</small></div><button class="switch" id="shimSw" role="switch" aria-checked="false" aria-label="Переливы даты"></button></div>
   <div class="set-row"><div><b>Спокойные анимации</b><small>Меньше движения на экране</small></div><button class="switch" id="calmSw" role="switch" aria-checked="false" aria-label="Спокойные анимации"></button></div>
-  <div class="sub-head">Звук</div>
+  </div></details>
+  <details class="grp"><summary><span><b>Звук</b><small>Звуки нажатий, сигнал напоминаний</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary><div class="grp-body">
   <div class="set-row set-col"><div><b>Звуки интерфейса</b><small>Тихие звуки при нажатиях, добавлении и выполнении</small></div><div class="opt-grid" id="opt-sfx"></div>
     <label class="vol" for="sfxVol">Громкость<input type="range" id="sfxVol" min="0" max="1" step="0.05"></label></div>
   <div class="set-row"><div><b>Звук напоминаний</b><small>Сигнал, когда срабатывает напоминание или таймер</small></div><button class="switch" id="soundSw" role="switch" aria-checked="true" aria-label="Звук напоминаний"></button></div>
   <div class="set-row"><div><b>Проверить напоминание</b><small>Покажет пробное уведомление со звуком</small></div><button class="link-btn" id="testRem">Проверить</button></div>
+  </div></details>
   <div hidden id="pwaRows">
   <div class="set-row" id="installRow"><div><b>Установить на устройство</b><small id="installText">Иконка на рабочем столе и работа без интернета</small></div><button class="link-btn" id="installBtn">Установить</button></div>
   <div class="set-row"><div><b>Системные уведомления</b><small id="notifText">Напоминания и будильник, даже когда окно свёрнуто</small></div><button class="switch" id="notifSw" role="switch" aria-checked="false" aria-label="Системные уведомления"></button></div>
-  <div class="set-row"><div><b>Версия</b><small>Ритм 1.1.0</small></div><button class="link-btn" id="updBtn">Проверить обновление</button></div>
+  <div class="set-row"><div><b>Версия</b><small>Ритм 1.2.0</small></div><button class="link-btn" id="updBtn">Проверить обновление</button></div>
   <div class="set-row" id="apkRow" hidden><div><b>Приложение для Android</b><small>С виджетами и будильником, который звонит, даже когда Ритм закрыт</small></div><a class="link-btn" href="ritm.apk" download>Скачать</a></div>
   </div>
-  <div class="sub-head">Будильник и напоминания</div>
+  <details class="grp" id="grpPhone" open><summary><span><b>Будильник и напоминания</b><small>Разрешения телефона, проверка будильника, версия</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary><div class="grp-body">
   <div id="permList"></div>
   <div class="set-row"><div><b>Проверить будильник</b><small>Зазвонит через 10 секунд. Можно сразу заблокировать телефон</small></div><button class="link-btn" id="nTest">Проверить</button></div>
   <div class="set-row"><div><b>Версия</b><small id="nVer">Ритм</small></div><button class="link-btn" id="nUpd">Проверить обновление</button></div>
-  <div class="sub-head">Данные</div>
+  </div></details>
+  <details class="grp" id="grpData"><summary><span><b>Данные</b><small>Резервная копия, восстановление, удаление</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary><div class="grp-body">
   <div class="set-row" id="exportRow"><div><b>Резервная копия</b><small>Сохрани файл со всеми записями</small></div><button class="link-btn" id="exportBtn">Сохранить файл</button></div>
   <div class="set-row"><div><b>Восстановить из копии</b><small>Загрузи файл, сохранённый раньше</small></div><span class="link-btn file-btn">Выбрать файл<input type="file" id="importFile" accept=".json,application/json"></span></div>
   <div class="set-row set-col" id="storeRow" hidden><div><b>Хранилище вложений</b><small id="storeText">Считаю…</small><div class="meter"><b id="storeBar" style="width:0"></b></div></div><button class="link-btn" id="cleanBtn" style="align-self:flex-start">Убрать неиспользуемые файлы</button></div>
   <div class="set-row"><div><b>Удалить всё</b><small>События, задачи и статистику</small></div><button class="btn danger" id="wipeBtn">Удалить</button></div>
-  <div class="actions"><button type="button" class="btn plain" id="setClose" style="flex:1">Готово</button></div>
+  </div></details>
+  <div class="actions"><button type="button" class="btn primary" id="setClose" style="flex:1">Готово</button></div>
 </div>
 
 <div class="ring-ov" id="ringOv" hidden role="alertdialog" aria-modal="true" aria-labelledby="ringTime">
@@ -895,7 +964,14 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
   <div class="grab"></div>
   <h3 id="alTitle">Будильник</h3>
   <form class="form" id="alForm" novalidate>
-    <input class="inp al-time" type="time" id="al-time" aria-label="Время будильника" required>
+    <div class="wheels" id="wheels" aria-label="Время будильника">
+      <div class="wheel" id="whH" tabindex="0" role="listbox" aria-label="Часы"></div>
+      <b class="wheel-colon">:</b>
+      <div class="wheel" id="whM" tabindex="0" role="listbox" aria-label="Минуты"></div>
+      <div class="wheel-hl" aria-hidden="true"></div>
+    </div>
+    <input type="hidden" id="al-time" value="07:00">
+    <p class="al-until" id="alUntil"></p>
     <div class="field"><span class="lbl">Дни</span>
       <div class="wdays" id="al-days">
         <input class="radio" type="checkbox" id="al-wd-1" value="1"><label for="al-wd-1">пн</label>
@@ -910,11 +986,12 @@ select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50
       <p class="hint" id="alHint"></p>
     </div>
     <div class="field"><label for="al-label">Подпись</label><input class="inp" id="al-label" maxlength="60" autocomplete="off" placeholder="Например: подъём в школу"></div>
-    <div class="row">
-      <div class="field"><label for="al-sound">Мелодия</label><select class="inp" id="al-sound"></select></div>
-      <div class="field"><label for="al-snooze">Отложить на</label><select class="inp" id="al-snooze"><option value="5">5 минут</option><option value="10">10 минут</option><option value="15">15 минут</option></select></div>
+    <div class="field"><label for="al-sound">Мелодия</label>
+      <div class="sound-row"><select class="inp" id="al-sound"></select>
+      <button type="button" class="round-btn" id="alPreview" aria-label="Послушать мелодию"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></button></div>
+      <p class="hint" id="soundHint"></p>
     </div>
-    <button type="button" class="link-btn" id="alPreview" style="align-self:flex-start"><svg class="ico" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>Послушать мелодию</button>
+      <div class="field"><label for="al-snooze">Отложить на</label><select class="inp" id="al-snooze"><option value="5">5 минут</option><option value="10">10 минут</option><option value="15">15 минут</option></select></div>
     <div class="set-row" style="border:0;padding:0"><div><b>Плавно громче</b><small>Звук нарастает за 30 секунд</small></div><button type="button" class="switch" id="al-grad" role="switch" aria-checked="true" aria-label="Плавно громче"></button></div>
     <p class="err" id="alErr" role="alert"></p>
     <div class="actions">
@@ -978,7 +1055,7 @@ function norm(o){
   if(Array.isArray(o.events))s.events=o.events.filter(e=>e&&e.id&&e.title).map(e=>({id:String(e.id),title:String(e.title),date:e.date||todayIso(),start:e.start||'09:00',end:e.end||'',color:[1,2,3,4].includes(e.color)?e.color:1,note:e.note||'',cat:e.cat||'',remind:typeof e.remind==='number'?e.remind:-1,repeat:normRep(e.repeat),skip:Array.isArray(e.skip)?e.skip:[],files:normFiles(e.files),created:e.created||0}));
   if(Array.isArray(o.notes))s.notes=o.notes.filter(n=>n&&n.id&&(n.title||n.text)).map(n=>({id:String(n.id),title:String(n.title||''),text:String(n.text||''),color:[1,2,3,4].includes(n.color)?n.color:1,pinned:!!n.pinned,files:normFiles(n.files),updated:n.updated||0}));
   if(Array.isArray(o.tasks))s.tasks=o.tasks.filter(t=>t&&t.id&&t.title).map(t=>({id:String(t.id),title:String(t.title),priority:[1,2,3].includes(t.priority)?t.priority:2,due:t.due||'',note:t.note||'',cat:t.cat||'',done:!!t.done,doneAt:t.doneAt||0,remindTime:t.remindTime||'',repeat:normRep(t.repeat),from:t.from||(t.created?iso(new Date(t.created)):todayIso()),doneDates:Array.isArray(t.doneDates)?t.doneDates.slice(-400):[],skip:Array.isArray(t.skip)?t.skip:[],subs:Array.isArray(t.subs)?t.subs.filter(x=>x&&x.t).map(x=>({id:x.id||uid(),t:String(x.t),d:!!x.d})):[],files:normFiles(t.files),created:t.created||0}));
-  if(Array.isArray(o.alarms))s.alarms=o.alarms.filter(a=>a&&a.id&&/^\d\d:\d\d$/.test(a.time)).map(a=>({id:String(a.id),time:a.time,days:Array.isArray(a.days)?a.days.map(Number).filter(n=>n>=0&&n<=6):[],label:String(a.label||''),sound:a.sound||'bells',snooze:[5,10,15].includes(a.snooze)?a.snooze:10,grad:a.grad!==false,on:a.on!==false,created:a.created||0}));
+  if(Array.isArray(o.alarms))s.alarms=o.alarms.filter(a=>a&&a.id&&/^\d\d:\d\d$/.test(a.time)).map(a=>({id:String(a.id),time:a.time,days:Array.isArray(a.days)?a.days.map(Number).filter(n=>n>=0&&n<=6):[],label:String(a.label||''),sound:String(a.sound||'bells'),soundName:String(a.soundName||''),snooze:[5,10,15].includes(a.snooze)?a.snooze:10,grad:a.grad!==false,on:a.on!==false,created:a.created||0}));
   if(o.focus&&typeof o.focus==='object')for(const k in o.focus){const v=Number(o.focus[k]);if(/^\d{4}-\d\d-\d\d$/.test(k)&&v>0)s.focus[k]=v}
   if(o.meta&&typeof o.meta==='object')s.meta={cleaned:!!o.meta.cleaned};
   return s;
@@ -1273,7 +1350,7 @@ function renderSchedule(){
   $('#nSched').textContent=evs.length||'';
   const rel=dayLabel(ui.day);$('#schedHead').textContent='Расписание'+(rel?' на '+rel:'');
   $('#copyPlan').hidden=!evs.length;
-  if(!evs.length){list.innerHTML='<li class="empty enter"><strong>День свободен</strong><p>Нажми «Добавить», чтобы вписать занятие или встречу. Повторяющиеся дела, например каждую субботу, тоже можно.</p></li>';return}
+  if(!evs.length){list.innerHTML='<li class="empty enter"><strong>День свободен</strong><p>Впиши занятие, встречу или тренировку. Можно сделать повтор, например каждую субботу.</p><button class="act-btn" data-act="event">Добавить событие</button></li>';return}
   const t=todayIso(),isToday=ui.day===t,isPast=ui.day<t,n=nowM();
   let h='',placed=false;
   evs.forEach((e,i)=>{
@@ -1367,7 +1444,7 @@ function renderTasks(){
     else if(ui.filter==='done')msg=['Пока ничего не отмечено','Отметь задачу кружком слева, и она появится здесь.'];
     else if(one.length)msg=['Всё сделано','Все важные задачи закрыты. Можно выдохнуть.'];
     else msg=['Задач пока нет','Запиши то, что важно не забыть: дедлайны, звонки, покупки. Для дел по расписанию выбери повтор по дням недели.'];
-    list.innerHTML='<li class="empty enter"><strong>'+msg[0]+'</strong><p>'+msg[1]+'</p></li>';return}
+    list.innerHTML='<li class="empty enter"><strong>'+msg[0]+'</strong><p>'+msg[1]+'</p>'+(ui.filter!=='done'&&!ui.q?'<button class="act-btn" data-act="task">Добавить задачу</button>':'')+'</li>';return}
   list.innerHTML=items.map((t,i)=>taskCard(t,i,ui.day)).join('');
 }
 function renderTabs(){
@@ -1376,11 +1453,14 @@ function renderTabs(){
   $('#quickAdd').hidden=!(ui.tab==='plan'||ui.tab==='tasks');
   TABS.forEach(k=>{$('#tab-'+k).setAttribute('aria-selected',String(ui.tab===k));const p=$('#p-'+k);const was=p.hidden;p.hidden=ui.tab!==k;if(was&&!p.hidden&&!reduce){p.classList.remove('panel-in');void p.offsetWidth;p.classList.add('panel-in')}});
   $('#fab').hidden=ui.tab==='stats'||(ui.tab==='focus'&&settings.clk!=='alarm');
+  $('#fabLab').textContent={plan:'Событие',tasks:'Задача',notes:'Заметка',focus:'Будильник'}[ui.tab]||'Добавить';$('#fab').setAttribute('aria-label','Добавить: '+$('#fabLab').textContent.toLowerCase());
 }
 function render(){renderHero();renderWeek();renderSchedule();renderTasks();renderNotes();renderTabs();if(ui.tab==='focus'){renderClock();renderFocus()}if(ui.tab==='stats')renderStats();firstPaint=false}
 
 /* ---------- interactions ---------- */
 document.addEventListener('click',e=>{
+  const act=e.target.closest('[data-act]');
+  if(act){const k=act.dataset.act;if(k==='event'){ui.tab='plan';openEditor()}else if(k==='task'){ui.tab='tasks';openEditor()}else if(k==='note')openNote();else if(k==='alarm')openAlarm();return}
   const day=e.target.closest('[data-day]');if(day){sfx('day');ui.day=day.dataset.day;render();return}
   const tog=e.target.closest('[data-toggle]');if(tog){toggleTask(tog.dataset.toggle,tog);return}
   const sub=e.target.closest('[data-sub]');if(sub){toggleSub(sub.dataset.sub);return}
@@ -1446,7 +1526,7 @@ function burst(el){
 
 /* ---------- dialogs ---------- */
 let openDlg=null,lastFocus=null;const scrim=$('#scrim');
-function showDlg(el){sfx('open');lastFocus=document.activeElement;openDlg=el;scrim.hidden=false;el.hidden=false;el.scrollTop=0;requestAnimationFrame(()=>requestAnimationFrame(()=>{scrim.classList.add('on');el.classList.add('on')}))}
+function showDlg(el){sfx('open');$('#toast').classList.remove('on');lastFocus=document.activeElement;openDlg=el;scrim.hidden=false;el.hidden=false;el.scrollTop=0;requestAnimationFrame(()=>requestAnimationFrame(()=>{scrim.classList.add('on');el.classList.add('on')}))}
 function closeDlg(){const el=openDlg;if(!el)return;sfx('close');openDlg=null;scrim.classList.remove('on');el.classList.remove('on');setTimeout(()=>{if(!openDlg)scrim.hidden=true;el.hidden=true},reduce?0:420);if(lastFocus&&lastFocus.focus)try{lastFocus.focus({preventScroll:true})}catch(_){}}
 scrim.onclick=closeDlg;
 document.addEventListener('keydown',e=>{if(!$('#lb').hidden){if(e.key==='Escape')closeLb();else if(e.key==='ArrowRight')lbStep(1);else if(e.key==='ArrowLeft')lbStep(-1);return}if(e.key==='Escape'&&openDlg)closeDlg()});
@@ -1631,7 +1711,7 @@ function renderNotes(){
   const q=ui.nq.trim().toLowerCase();
   const list=state.notes.filter(n=>!q||(n.title+' '+n.text).toLowerCase().includes(q)).sort((a,b)=>(b.pinned-a.pinned)||(b.updated-a.updated));
   const el=$('#notes');
-  if(!list.length){el.style.columns='auto';el.innerHTML='<div class="empty enter"><strong>'+(q?'Ничего не найдено':'Заметок пока нет')+'</strong><p>'+(q?'Попробуй другое слово.':'Записывай идеи, списки покупок, конспекты. К заметке можно прикрепить фото и файлы.')+'</p></div>';return}
+  if(!list.length){el.style.columns='auto';el.innerHTML='<div class="empty enter"><strong>'+(q?'Ничего не найдено':'Заметок пока нет')+'</strong><p>'+(q?'Попробуй другое слово.':'Записывай идеи, списки покупок, конспекты. К заметке можно прикрепить фото и файлы.')+'</p>'+(q?'':'<button class="act-btn" data-act="note">Новая заметка</button>')+'</div>';return}
   el.style.columns='';
   el.innerHTML=list.map((n,i)=>'<div class="note-wrap '+enterCls('n'+n.id)+'" style="--i:'+i+';--c:var(--sw'+n.color+')"><button class="note" data-note="'+n.id+'">'+
     (n.title?'<h4>'+(n.pinned?PIN_ICO:'')+'<span>'+esc(n.title)+'</span></h4>':'')+(n.text?'<p>'+esc(n.text)+'</p>':'')+
@@ -1781,14 +1861,18 @@ function quickCreate(){
   $('#quick').value='';quickPreview();persist();render();
   sfx('add');toast(kind==='event'?'Событие добавлено':'Задача добавлена','Изменить',()=>openEditor(kind,id));
 }
-$('#quick').addEventListener('input',quickPreview);
+$('#quick').addEventListener('input',()=>{quickPreview();qaEx()});
+function qaEx(){$('#qaEx').hidden=!(document.activeElement===$('#quick')&&!$('#quick').value.trim())}
+$('#quick').addEventListener('focus',qaEx);$('#quick').addEventListener('blur',()=>setTimeout(qaEx,150));
+$('#qaEx').addEventListener('mousedown',e=>e.preventDefault());
+$('#qaEx').addEventListener('click',e=>{const b=e.target.closest('[data-ex]');if(!b)return;$('#quick').value=b.dataset.ex;$('#quick').focus();quickPreview();qaEx()});
 $('#quick').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();quickCreate()}});
 $('#quickGo').onclick=quickCreate;
 
 /* ---------- alarm clock ---------- */
 const SOUNDS=[['bells','Колокольчики'],['dawn','Рассвет'],['harp','Арфа'],['kalimba','Калимба'],['chimes','Ветряные колокольчики'],['lullaby','Колыбельная'],['marimba','Маримба'],['birds','Птички'],['classic','Классика'],['arcade','Аркада']];
 function playMelody(name,vol){
-  if(!graph())return;const T=(f,o)=>tone(f,Object.assign({},o,{vol:(o.vol||.3)*vol*1.6}));
+  if(!graph())return;if(!SOUNDS.some(x=>x[0]===name))name='bells';const T=(f,o)=>tone(f,Object.assign({},o,{vol:(o.vol||.3)*vol*1.6}));
   if(name==='bells')[[0,0],[4,.2],[7,.4],[12,.6]].forEach(([n,a])=>T(st(1046.5,n),{at:a,dur:1.8,vol:.2,fm:.6,fmr:3.5}));
   else if(name==='dawn')[[0,0],[4,.3],[7,.6],[11,.9],[12,1.2],[16,1.5]].forEach(([n,a])=>T(st(392,n),{at:a,dur:1.6,vol:.22,type:'triangle',lp:2600}));
   else if(name==='harp')[0,4,7,11,14,19,23].forEach((n,i)=>T(st(261.6,n),{at:i*.11,dur:1.8,vol:.2,fm:.2,fmr:2,lp:3200}));
@@ -1817,7 +1901,10 @@ function renderClock(){
 $('#clockSeg').addEventListener('change',e=>{settings.clk=e.target.value;saveSettings();renderClock();renderTabs()});
 function renderAlarms(){
   const nx=nextAlarm();
-  $('#nextAl').innerHTML=nx?'<span>Следующий будильник</span><b>'+new Date(nx.t).toTimeString().slice(0,5)+'</b><span>через '+untilText(nx.t-Date.now())+(nx.a.label?' · '+esc(nx.a.label):'')+'</span>':'<span>Будильников нет</span><b>--:--</b><span>Нажми «Новый будильник», чтобы поставить</span>';
+  const BELL='<svg width="32" height="32"><use href="#i-bell"/></svg>';
+  $('#nextAl').innerHTML=nx?'<span>Следующий будильник</span><b>'+new Date(nx.t).toTimeString().slice(0,5)+'</b><span>через '+untilText(nx.t-Date.now())+(nx.a.label?' · '+esc(nx.a.label):'')+'</span>':
+    (state.alarms.length?'<span>Все будильники выключены</span><span>Включи нужный переключателем справа</span>':'<div class="al-empty"><span class="big-bell">'+BELL+'</span><strong>Будильников пока нет</strong><p>Поставь время и дни, когда звонить. Например, по будням в 7:00.</p><button class="act-btn" data-act="alarm">Поставить будильник</button></div>');
+  $('#alNew').hidden=!state.alarms.length;
   const list=state.alarms.slice().sort((a,b)=>a.time.localeCompare(b.time));
   $('#alList').innerHTML=list.map((a,i)=>'<div class="al-item'+(a.on?'':' off')+' '+enterCls('al'+a.id)+'" style="--i:'+i+'"><button class="al-main" data-alarm="'+a.id+'"><b>'+a.time+'</b><span>'+alDays(a.days)+(a.label?' · '+esc(a.label):'')+'</span></button><button class="switch" data-altog="'+a.id+'" role="switch" aria-checked="'+a.on+'" aria-label="Будильник '+a.time+'"></button></div>').join('');
 }
@@ -1826,30 +1913,81 @@ document.addEventListener('click',e=>{
   const m=e.target.closest('[data-alarm]');if(m)openAlarm(m.dataset.alarm);
 });
 let editingAlarm=null;
-$('#al-sound').innerHTML=SOUNDS.map(s=>'<option value="'+s[0]+'">'+s[1]+'</option>').join('');
-function alHint(){const d=$$('#al-days input:checked').map(i=>Number(i.value));$('#alHint').textContent='Повтор: '+alDays(d)+'.'}
+document.addEventListener('click',e=>{
+  const n=e.target.closest('[data-nap]');if(!n)return;
+  const t=new Date(Date.now()+Number(n.dataset.nap)*60000);const time=pad(t.getHours())+':'+pad(t.getMinutes());
+  const mins=Number(n.dataset.nap);
+  const a={id:uid(),created:Date.now(),time,days:[],label:mins>=240?'Подъём':'Короткий отдых',sound:settings.lastSound||'bells',soundName:'',snooze:5,grad:true,on:true};
+  state.alarms.push(a);persist();renderAlarms();sfx('add');unlockAudio();
+  toast('Будильник на '+time+' поставлен','Отменить',()=>{state.alarms=state.alarms.filter(x=>x!==a);persist();renderAlarms()});
+});
+/* wheel time picker */
+const WH_ROW=56;
+function buildWheel(el,n){el.innerHTML='<div class="pad"></div>'+Array.from({length:n},(_,i)=>'<div data-v="'+i+'">'+pad(i)+'</div>').join('')+'<div class="pad"></div>'}
+buildWheel($('#whH'),24);buildWheel($('#whM'),60);
+function wheelVal(el){return Math.max(0,Math.min(el.children.length-3,Math.round(el.scrollTop/WH_ROW)))}
+function markWheel(el){const v=wheelVal(el);[...el.children].forEach(c=>c.classList.toggle('sel',c.dataset.v==String(v)))}
+function setWheels(t,smooth){const [h,m]=t.split(':').map(Number);[[ '#whH',h],['#whM',m]].forEach(([id,v])=>{const el=$(id);el.scrollTo({top:v*WH_ROW,behavior:smooth&&!reduce?'smooth':'auto'});markWheel(el)})}
+function wheelsToInput(){const t=pad(wheelVal($('#whH')))+':'+pad(wheelVal($('#whM')));$('#al-time').value=t;alUntil()}
+function alUntil(){
+  const days=$$('#al-days input:checked').map(i=>Number(i.value));
+  const t=nextFire({time:$('#al-time').value,days});
+  $('#alUntil').textContent=t?'Зазвонит через '+untilText(t-Date.now())+(days.length?'':', один раз'):'';
+}
+['#whH','#whM'].forEach(id=>{
+  const el=$(id);let tm=0,lastV=-1;
+  el.addEventListener('scroll',()=>{markWheel(el);const v=wheelVal(el);if(v!==lastV){lastV=v;if(settings.sfx&&settings.sfx!=='off'&&!$('#alarmSheet').hidden)sfx('day')}clearTimeout(tm);tm=setTimeout(wheelsToInput,90)},{passive:true});
+  el.addEventListener('click',e=>{const d=e.target.closest('[data-v]');if(d)el.scrollTo({top:Number(d.dataset.v)*WH_ROW,behavior:reduce?'auto':'smooth'})});
+  el.addEventListener('keydown',e=>{if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();const max=el.children.length-3;const v=Math.max(0,Math.min(max,wheelVal(el)+(e.key==='ArrowUp'?-1:1)));el.scrollTo({top:v*WH_ROW})}});
+});
+/* melodies: built-in, from the phone, from a file */
+function soundName(id){const b=SOUNDS.find(x=>x[0]===id);if(b)return b[1];const c=(settings.customSounds||[]).find(x=>x.id===id);return c?c.name:'Своя мелодия'}
+function fillSounds(cur){
+  const custom=(settings.customSounds||[]).slice();
+  if(cur&&!SOUNDS.some(x=>x[0]===cur)&&!custom.some(x=>x.id===cur))custom.push({id:cur,name:'Своя мелодия'});
+  let h='<optgroup label="Мелодии Ритма">'+SOUNDS.map(x=>'<option value="'+x[0]+'">'+x[1]+'</option>').join('')+'</optgroup>';
+  if(custom.length)h+='<optgroup label="Мои мелодии">'+custom.map(x=>'<option value="'+esc(x.id)+'">'+esc(x.name)+'</option>').join('')+'</optgroup>';
+  if(window.RitmNative&&RitmNative.pickSound)h+='<optgroup label="Добавить свою"><option value="__ringtone">Выбрать мелодию телефона…</option><option value="__file">Выбрать файл с музыкой…</option></optgroup>';
+  $('#al-sound').innerHTML=h;$('#al-sound').value=cur||'bells';$('#al-sound').dataset.prev=$('#al-sound').value;
+  $('#soundHint').textContent=window.RitmNative&&RitmNative.pickSound?'Внизу списка можно выбрать мелодию телефона или свой файл с музыкой.':'';
+}
+$('#al-sound').addEventListener('change',e=>{
+  const v=e.target.value;
+  if(v==='__ringtone'||v==='__file'){e.target.value=e.target.dataset.prev||'bells';try{RitmNative.pickSound(v.slice(2))}catch(err){toast('Не получилось открыть выбор мелодии')}return}
+  e.target.dataset.prev=v;stopPreview();
+});
+window.__ritmSoundPicked=(id,name)=>{
+  if(!id){toast(name==='ringtone'?'Эту мелодию не получилось открыть, выбери другую':'Не получилось открыть файл. Подойдёт MP3, M4A, OGG или WAV до 25 МБ');return}
+  settings.customSounds=(settings.customSounds||[]).filter(x=>x.id!==id);settings.customSounds.unshift({id,name:name||'Своя мелодия'});
+  settings.customSounds=settings.customSounds.slice(0,12);saveSettings();
+  fillSounds(id);sfx('add');toast('Мелодия «'+(name||'Своя мелодия')+'» выбрана');
+};
+let previewing=false;
+function stopPreview(){if(previewing&&window.RitmNative&&RitmNative.stopPreview){try{RitmNative.stopPreview()}catch(e){}}previewing=false}
+function alHint(){const d=$$('#al-days input:checked').map(i=>Number(i.value));$('#alHint').textContent='Повтор: '+alDays(d)+'.';alUntil()}
 $$('#al-days input').forEach(i=>i.addEventListener('change',alHint));
 $$('[data-alq]').forEach(b=>b.onclick=()=>{const d=b.dataset.alq?b.dataset.alq.split(',').map(Number):[];$$('#al-days input').forEach(i=>i.checked=d.includes(Number(i.value)));alHint()});
 function openAlarm(id){
   unlockAudio();
   const a=id?state.alarms.find(x=>x.id===id):null;editingAlarm=a?a.id:null;
   $('#alTitle').textContent=a?'Будильник':'Новый будильник';
-  $('#al-time').value=a?a.time:'07:00';$('#al-label').value=a?a.label:'';$('#al-sound').value=a?a.sound:'bells';$('#al-snooze').value=String(a?a.snooze:10);
+  $('#al-time').value=a?a.time:(arguments[1]||'07:00');$('#al-label').value=a?a.label:'';fillSounds(a?a.sound:(settings.lastSound||'bells'));$('#al-snooze').value=String(a?a.snooze:10);
   $('#al-grad').setAttribute('aria-checked',String(a?a.grad:true));
   const d=a?a.days:[1,2,3,4,5];$$('#al-days input').forEach(i=>i.checked=d.includes(Number(i.value)));alHint();
   $('#alErr').textContent='';const del=$('#alDel');del.hidden=!a;del.classList.remove('armed');del.textContent='Удалить';
   showDlg($('#alarmSheet'));
+  requestAnimationFrame(()=>setWheels($('#al-time').value,false));setTimeout(()=>setWheels($('#al-time').value,false),60);alUntil();
 }
 $('#alNew').onclick=()=>openAlarm();
-$('#alCancel').onclick=closeDlg;
+$('#alCancel').onclick=()=>{stopPreview();closeDlg()};
 $('#al-grad').onclick=function(){this.setAttribute('aria-checked',String(this.getAttribute('aria-checked')!=='true'))};
-$('#alPreview').onclick=()=>{unlockAudio();playMelody($('#al-sound').value,.5)};
+$('#alPreview').onclick=()=>{unlockAudio();const v=$('#al-sound').value;if(SOUNDS.some(x=>x[0]===v))playMelody(v,.5);else if(window.RitmNative&&RitmNative.previewSound){RitmNative.previewSound(v);previewing=true;toast('Играет 10 секунд')}else toast('Свою мелодию можно послушать в приложении для Android')};
 $('#alForm').addEventListener('submit',e=>{
-  e.preventDefault();const time=$('#al-time').value;if(!time){$('#alErr').textContent='Укажи время.';return}
+  e.preventDefault();stopPreview();wheelsToInput();const time=$('#al-time').value;if(!time){$('#alErr').textContent='Укажи время.';return}
   const days=$$('#al-days input:checked').map(i=>Number(i.value));
-  const data={time,days,label:$('#al-label').value.trim(),sound:$('#al-sound').value,snooze:Number($('#al-snooze').value),grad:$('#al-grad').getAttribute('aria-checked')==='true',on:true};
+  const data={time,days,label:$('#al-label').value.trim(),sound:$('#al-sound').value,soundName:soundName($('#al-sound').value),snooze:Number($('#al-snooze').value),grad:$('#al-grad').getAttribute('aria-checked')==='true',on:true};
   let a;if(editingAlarm){a=state.alarms.find(x=>x.id===editingAlarm);Object.assign(a,data)}else{a=Object.assign({id:uid(),created:Date.now()},data);state.alarms.push(a)}
-  alSnooze=alSnooze.filter(s=>s.id!==a.id);lsSet('ritm-alsnooze',alSnooze);
+  alSnooze=alSnooze.filter(s=>s.id!==a.id);lsSet('ritm-alsnooze',alSnooze);settings.lastSound=data.sound;
   persist();closeDlg();settings.clk='alarm';saveSettings();ui.tab='focus';lsSet('ritm-tab','focus');render();
   sfx('add');toast('Будильник зазвонит через '+untilText(nextFire(a)-Date.now()));
 });
@@ -2110,6 +2248,8 @@ function renderStats(){
 /* ---------- settings ---------- */
 $('#settingsBtn').onclick=()=>{$('#th-'+settings.theme).checked=true;$('#soundSw').setAttribute('aria-checked',String(settings.sound));$('#wipeBtn').classList.remove('armed');$('#wipeBtn').textContent='Удалить';renderAccents();renderOpts();renderStore();showDlg($('#settings'))};
 $('#setClose').onclick=closeDlg;
+$('#helpBtn').onclick=()=>showDlg($('#helpSheet'));$('#helpClose').onclick=closeDlg;
+setTimeout(()=>{if(!lsGet('ritm-help-seen',false)){lsSet('ritm-help-seen',true);if(!openDlg&&!state.events.length&&!state.tasks.length&&!state.notes.length)showDlg($('#helpSheet'))}},1200);
 $$('input[name=theme]').forEach(i=>i.addEventListener('change',()=>{settings.theme=i.value;saveSettings();applyTheme()}));
 $('#soundSw').onclick=function(){settings.sound=!settings.sound;this.setAttribute('aria-checked',String(settings.sound));saveSettings();if(settings.sound){unlockAudio();chime()}};
 let downloads=null;
@@ -2339,6 +2479,15 @@ if(N){
   };
   try{const qp=new URLSearchParams(location.search);const add=qp.get('add');if(add)setTimeout(()=>__ritmOpen(qp.get('tab')||'plan',add),700)}catch(e){}
   setTimeout(()=>{nativeEvents();nativeSync();nativeBars()},400);
+}
+/* show a snoozed alarm (kept by the phone) as the next one */
+if(N){
+  const _ra=renderAlarms;renderAlarms=function(){
+    _ra();
+    try{readStatus();const nx=nextAlarm();const t=nStatus.next;
+      if(t&&t>Date.now()&&(!nx||t<nx.t-60000)){const d=new Date(t);$('#nextAl').innerHTML='<span>Отложенный будильник</span><b>'+pad(d.getHours())+':'+pad(d.getMinutes())+'</b><span>через '+untilText(t-Date.now())+'</span>'}
+    }catch(e){}
+  };
 }
 
 /* ---------- boot ---------- */
